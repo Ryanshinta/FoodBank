@@ -6,8 +6,15 @@
         <entry key="..\:/FoodBank/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/FoodBank/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.169140625" />
         <entry key="..\:/FoodBank/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1478825136612022" />
+        <entry key="..\:/FoodBank/app/src/main/res/layout/activity_admin.xml" value="0.23333333333333334" />
+        <entry key="..\:/FoodBank/app/src/main/res/layout/activity_admin_food_bank.xml" value="0.3134057971014493" />
         <entry key="..\:/FoodBank/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/FoodBank/app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="..\:/FoodBank/app/src/main/res/layout/admin_delete_activity.xml" value="0.25" />
+        <entry key="..\:/FoodBank/app/src/main/res/menu/activity_admin_food-bank.xml" value="0.34270833333333334" />
+        <entry key="..\:/FoodBank/app/src/main/res/menu/activity_main_drawer.xml" value="0.34270833333333334" />
+        <entry key="..\:/FoodBank/app/src/main/res/menu/admin_activity.xml" value="0.34270833333333334" />
+        <entry key="..\:/FoodBank/app/src/main/res/menu/admin_activity_foodbank.xml" value="0.33" />
       </map>
     </option>
   </component>

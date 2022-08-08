@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:src="@drawable/logo"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="333dp"
+        android:layout_height="699dp"
+        app:srcCompat="@drawable/fooddo"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="-124dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:outlineProvider="none"
+        android:text="Make Donation"
+        android:textSize="35dp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="337dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="249dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="Exp: Milo"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="450dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="247dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Exp: 2"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="547dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        android:layout_width="247dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="Exp: Taman Bunga Raya"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="640dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="513dp" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Bank
+"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="606dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="416dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="232dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#59ADD3"
+        android:text="Donate"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="718dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="232dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#930938"
+        android:text="Cancel"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="781dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

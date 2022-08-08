@@ -26,4 +26,5 @@
     <string name="foodBank_name">FoodBank Name</string>
     <string name="last_time_update">Last Time Update</string>
     <string name="contact_number">Contact Number</string>
+    <string name="title_activity_register">registerActivity</string>
 </resources>

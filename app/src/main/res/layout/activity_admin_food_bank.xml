@@ -84,15 +84,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/donate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="?attr/actionBarSize"
-            android:contentDescription="Food Donation"
-            android:src="@android:drawable/ic_menu_add" />
-
     </FrameLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

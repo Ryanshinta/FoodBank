@@ -1,3 +1,3 @@
-package com.taruc.foodbank.entity
-
-data class user()
+//package com.taruc.foodbank.entity
+//
+//data class user()

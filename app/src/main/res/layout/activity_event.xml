@@ -42,23 +42,23 @@
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="#F44336"
         android:translationZ="90dp"
 
         app:srcCompat="@android:drawable/ic_menu_mylocation"
         tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="371dp" />
+        tools:layout_editor_absoluteY="371dp"
+        app:tint="#F44336" />
 
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="#F44336"
         android:translationZ="90dp"
 
         app:srcCompat="@android:drawable/ic_menu_mylocation"
         tools:layout_editor_absoluteX="189dp"
-        tools:layout_editor_absoluteY="582dp" />
+        tools:layout_editor_absoluteY="582dp"
+        app:tint="#F44336" />
 
     <ImageView
         android:id="@+id/imageView15"
@@ -200,7 +200,6 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:Alignment="center"
         android:text="All Events"
         android:textColor="@color/white"
         android:textSize="27sp"

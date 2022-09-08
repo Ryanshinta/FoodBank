@@ -7,7 +7,10 @@ import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthActionCodeException
+import com.google.firebase.auth.FirebaseAuthException
 import com.taruc.foodbank.databinding.ActivityRegisterBinding
 
 
@@ -48,11 +51,11 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
             return;
         }
-        if (TextUtils.isEmpty(RepeatPassword)) {
-            Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
-                .show()
-            return;
-        }
+//        if (TextUtils.isEmpty(RepeatPassword)) {
+//            Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
+//                .show()
+//            return;
+//        }
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
@@ -64,6 +67,17 @@ class RegisterActivity : AppCompatActivity() {
                     ).show()
                     finish()
                 } else {
+                    try {
+                        throw task.exception!!
+                    }catch (e:FirebaseAuthActionCodeException){
+
+                    }catch (e:FirebaseAuthException){
+
+                    }catch (e:FileAlreadyExistsException){
+
+                    }catch (e:FirebaseException){
+
+                    }
                     Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
                 }
             }

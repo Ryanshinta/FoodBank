@@ -3,14 +3,13 @@ package com.taruc.foodbank
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthActionCodeException
-import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.*
 import com.taruc.foodbank.databinding.ActivityRegisterBinding
 
 
@@ -35,9 +34,9 @@ class RegisterActivity : AppCompatActivity() {
         var password: String
         var RepeatPassword: String
 
-        email = binding.etEmail.toString()
-        password = binding.EtPassword.toString()
-        RepeatPassword = binding.password2.toString()
+        email = binding.etEmail.text.toString()
+        password = binding.EtPassword.text.toString()
+        RepeatPassword = binding.password2.text.toString()
 //
 //        if(password != RepeatPassword){
 //            Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
@@ -68,13 +67,14 @@ class RegisterActivity : AppCompatActivity() {
                     finish()
                 } else {
                     try {
+                        Log.e("Register error",task.exception.toString())
                         throw task.exception!!
-                    }catch (e:FirebaseAuthActionCodeException){
-
-                    }catch (e:FirebaseAuthException){
-
-                    }catch (e:FileAlreadyExistsException){
-
+                    }catch (e:FirebaseAuthWeakPasswordException){
+                        throw e
+                    }catch (e:FirebaseAuthInvalidCredentialsException){
+                        throw e
+                    }catch (e:FirebaseAuthUserCollisionException){
+                        throw e
                     }catch (e:FirebaseException){
 
                     }

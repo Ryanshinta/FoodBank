@@ -4,6 +4,7 @@ package com.taruc.foodbank
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
@@ -38,8 +39,8 @@ class activityLogin : AppCompatActivity() {
     }
 
     private fun login() {
-        val email = binding.etEmail.toString()
-        val password = binding.EtPassword.toString()
+        val email = binding.etEmail.text.toString()
+        val password = binding.EtPassword.text.toString()
 
 
         var auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -47,8 +48,10 @@ class activityLogin : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Log.i("Login Success",task.result.toString())
                     Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_LONG).show()
                 } else {
+                    Log.e("Login error",task.exception.toString())
                     Toast.makeText(this, "Log In failed", Toast.LENGTH_LONG).show()
                 }
             }

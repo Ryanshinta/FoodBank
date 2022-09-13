@@ -78,9 +78,10 @@ class RegisterActivity : AppCompatActivity() {
                         "role" to role.USER
                     )
                     db.collection("users")
-                        .add(user)
+                        .document(email)
+                        .set(user)
                         .addOnSuccessListener { documentReference ->
-                            Log.d("Firebase", "DocumentSnapshot added with ID: ${documentReference.id}")
+                            Log.d("Firebase", "DocumentSnapshot added with ID: ${documentReference.toString()}")
                         }
                         .addOnFailureListener { e ->
                             Log.w("Firebase", "Error adding document", e)

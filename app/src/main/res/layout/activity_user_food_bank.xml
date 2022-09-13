@@ -14,8 +14,9 @@
         android:iconifiedByDefault="false"
         android:queryHint="Search Food Bank"
         android:textColor="@color/white"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="222dp">
+        tools:layout_editor_absoluteY="226dp">
 
     </android.widget.SearchView>
 

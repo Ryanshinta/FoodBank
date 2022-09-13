@@ -27,34 +27,37 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.793" />
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="405dp"
         android:layout_height="227dp"
         android:text="This is a food bank"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="242dp"
-        tools:ignore="MissingConstraints"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20dp"
-        android:textAlignment="center"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="332dp" />
 
-        <Button
-            android:id="@+id/registerUser"
-            android:layout_width="182dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:text="Back"
-            android:textColor="@color/white"
-            tools:layout_editor_absoluteX="114dp"
-            tools:layout_editor_absoluteY="537dp"
-            tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/registerUser"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="Back"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="586dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

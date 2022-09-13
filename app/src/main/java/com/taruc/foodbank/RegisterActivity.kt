@@ -85,6 +85,8 @@ class RegisterActivity : AppCompatActivity() {
                         .addOnFailureListener { e ->
                             Log.w("Firebase", "Error adding document", e)
                         }
+                    val intent = Intent(this, activityLogin::class.java)
+                    startActivity(intent)
                     finish()
                 } else {
                     try {

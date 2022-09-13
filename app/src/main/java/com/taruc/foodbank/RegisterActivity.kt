@@ -10,18 +10,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.taruc.foodbank.databinding.ActivityRegisterBinding
+import com.taruc.foodbank.entity.role
+import com.taruc.foodbank.entity.user
 
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
 
         auth = FirebaseAuth.getInstance();
+        db = Firebase.firestore
 
         binding.btnRegister.setOnClickListener() {
             registerNewUser()
@@ -30,18 +40,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerNewUser() {
-        var email: String
-        var password: String
-        var RepeatPassword: String
 
-        email = binding.etEmail.text.toString()
-        password = binding.EtPassword.text.toString()
-        RepeatPassword = binding.password2.text.toString()
-//
-//        if(password != RepeatPassword){
-//            Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
-//            return;
-//        }
+        var email: String = binding.etEmail.text.toString()
+        var name:String = binding.etName.text.toString()
+        var password: String = binding.EtPassword.text.toString()
+        var RepeatPassword: String = binding.password2.text.toString()
+
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email!", Toast.LENGTH_LONG).show()
             return;
@@ -50,11 +54,15 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
             return;
         }
-//        if (TextUtils.isEmpty(RepeatPassword)) {
-//            Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
-//                .show()
-//            return;
-//        }
+        if (TextUtils.isEmpty(RepeatPassword)) {
+            Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
+                .show()
+            return;
+        }
+        if(password != RepeatPassword){
+            Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
+            return;
+        }
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
@@ -64,6 +72,19 @@ class RegisterActivity : AppCompatActivity() {
                         "Registration successful!",
                         Toast.LENGTH_LONG
                     ).show()
+                    val user = hashMapOf(
+                        "name" to name,
+                        "email" to email,
+                        "role" to role.USER
+                    )
+                    db.collection("users")
+                        .add(user)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d("Firebase", "DocumentSnapshot added with ID: ${documentReference.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("Firebase", "Error adding document", e)
+                        }
                     finish()
                 } else {
                     try {
@@ -83,5 +104,6 @@ class RegisterActivity : AppCompatActivity() {
             }
 
     }
+
 
 }

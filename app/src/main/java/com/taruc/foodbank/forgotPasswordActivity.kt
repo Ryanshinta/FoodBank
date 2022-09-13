@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.taruc.foodbank.databinding.ActivityForgotPasswordBinding
 import com.taruc.foodbank.databinding.ActivityLoginBinding
-
+// todo forgotPassword
 class forgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private lateinit var auth: FirebaseAuth

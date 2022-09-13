@@ -27,6 +27,7 @@ class activityLogin : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
+        auth.currentUser
         binding.btnLogin.setOnClickListener() {
             login()
         }

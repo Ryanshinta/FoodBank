@@ -14,12 +14,12 @@ object PlaceholderContent {
     /**
      * An array of sample (placeholder) items.
      */
-    val ITEMS: MutableList<PlaceholderItem> = ArrayList()
+    val ITEMS: MutableList<foodBank> = ArrayList()
 
     /**
      * A map of sample (placeholder) items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
+    val ITEM_MAP: MutableMap<String, foodBank> = HashMap()
 
     private val COUNT = 25
 
@@ -30,13 +30,13 @@ object PlaceholderContent {
         }
     }
 
-    private fun addItem(item: PlaceholderItem) {
+    private fun addItem(item: foodBank) {
         ITEMS.add(item)
         ITEM_MAP.put(item.id, item)
     }
 
-    private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
+    private fun createPlaceholderItem(position: Int): foodBank {
+        return foodBank(position.toString(), "Item " + position, makeDetails(position))
     }
 
     private fun makeDetails(position: Int): String {
@@ -51,7 +51,7 @@ object PlaceholderContent {
     /**
      * A placeholder item representing a piece of content.
      */
-    data class PlaceholderItem(val id: String, val content: String, val details: String) {
+    data class foodBank(val id: String, val content: String, val details: String) {
         override fun toString(): String = content
     }
 }

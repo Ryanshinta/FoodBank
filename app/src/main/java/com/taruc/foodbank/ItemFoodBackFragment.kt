@@ -8,28 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.taruc.foodbank.entity.food
 import com.taruc.foodbank.entity.foodBank
-import com.taruc.foodbank.entity.role
-import com.taruc.foodbank.entity.user
-import com.taruc.foodbank.placeholder.PlaceholderContent
-import java.util.*
 
 /**
  * A fragment representing a list of Items.
  */
 class ItemFoodBackFragment : Fragment() {
 
-    private val initFoodBank = listOf<foodBank>(
-        foodBank("Food bank001","Address 001",
-        foods = listOf(food("food001",1, Date(),user("ryan","ryan@gmail.com", role.USER),"food1")),null,"bank001"),
+    private lateinit var adapter: FoodBackRecyclerViewAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var initFoodBankList:List<foodBank>
 
-        foodBank("Food bank002","Address 001",
-            foods = listOf(food("food001",1, Date(),user("ryan","ryan@gmail.com", role.USER),"food1")),null,"bank001"),
 
-        foodBank("Food bank003","Address 001",
-            foods = listOf(food("food001",1, Date(),user("ryan","ryan@gmail.com", role.USER),"food1")),null,"bank001"),
-    )
 
     private var columnCount = 1
 
@@ -55,7 +45,7 @@ class ItemFoodBackFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemFoodBackRecyclerViewAdapter(PlaceholderContent.ITEMS)
+                adapter = FoodBackRecyclerViewAdapter(listOf(foodBank))
             }
         }
         return view

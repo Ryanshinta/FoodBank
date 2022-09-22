@@ -3,23 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_food_bank">
 
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.taruc.foodbank.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/nav_food_bank"
+        android:name="com.taruc.foodbank.userFoodBank"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
 
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.taruc.foodbank.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+    <activity
+        android:id="@+id/nav_donation"
+        android:name="com.taruc.foodbank.userDonationActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_donation" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.taruc.foodbank.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+    <activity
+        android:id="@+id/nav_application"
+        android:name="com.taruc.foodbank.userApplicationActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_event"
+        android:name="com.taruc.foodbank.userEventActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_volunteer"
+        android:name="com.taruc.foodbank.userVolunteerActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_logout"
+        android:name="com.taruc.foodbank.userLogoutActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_share"
+        android:name="com.taruc.foodbank.userShareActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_setting"
+        android:name="com.taruc.foodbank.userSettingActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
+
+    <activity
+        android:id="@+id/nav_about_us"
+        android:name="com.taruc.foodbank.userAboutUsActivity"
+        android:label="Food Bank"
+        tools:layout="@layout/activity_user_food_bank" />
 </navigation>

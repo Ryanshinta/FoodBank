@@ -8,25 +8,23 @@
         <entry key="..\:/FoodBank/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1478825136612022" />
         <entry key="..\:/FoodBank/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/FoodBank/app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_about_us.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_admin.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_admin_event.xml" value="0.20222317229585293" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_admin_food_bank.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_event.xml" value="0.2" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_forgot_password.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_manage_donation.xml" value="0.20521590423257802" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_register.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_user_donation.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_user_food_bank.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_volunteer.xml" value="0.21105072463768115" />
-        <entry key="..\:/Users/Ash/AndroidStudioProjects/FoodBank/app/src/main/res/layout/admin_delete_activity.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/taruc/AndroidStudioProjects/FoodBank/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/drawable/ic_menu_camera.xml" value="0.358" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/drawable/side_nav_bar.xml" value="0.358" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_main.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_manage_application.xml" value="0.1921875" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_manage_donation.xml" value="0.1921875" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_donation.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_donation2.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/nav_header.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/activity_main_drawer.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/admin_activity.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/admin_activity_foodbank.xml" value="0.3567708333333333" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/nav_menu.xml" value="0.3567708333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

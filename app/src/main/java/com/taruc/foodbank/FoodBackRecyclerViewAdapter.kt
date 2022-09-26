@@ -32,7 +32,7 @@ class FoodBackRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.foodBankImg.setImageResource(item.image)
+        //holder.foodBankImg.setImageResource(item.image)
         holder.foodBankAdd.text = item.address
         holder.foodBankTitle.text = item.name
 

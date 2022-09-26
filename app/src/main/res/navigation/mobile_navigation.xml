@@ -13,7 +13,7 @@
 
     <activity
         android:id="@+id/nav_donation"
-        android:name="com.taruc.foodbank.userDonationActivity"
+        android:name="com.taruc.foodbank.UserDonationActivity"
         android:label="Food Bank"
         tools:layout="@layout/activity_user_donation" />
 

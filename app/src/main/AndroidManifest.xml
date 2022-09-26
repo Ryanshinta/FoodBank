@@ -16,7 +16,7 @@
         android:theme="@style/Theme.FoodBank"
         tools:targetApi="31">
         <activity
-            android:name=".userDonationActivity"
+            android:name=".UserDonationActivity"
             android:exported="false" />
         <activity
             android:name=".UserProfileActivity"

@@ -27,7 +27,7 @@ class UserProfileActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val usersRef = db.collection("users")
-        usersRef.document(uid).get().addOnCompleteListener { task ->
+        usersRef.document("jiahao@gmail.com").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document = task.result
                 if (document.exists()) {

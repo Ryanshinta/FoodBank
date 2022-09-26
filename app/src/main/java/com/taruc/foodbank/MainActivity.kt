@@ -3,19 +3,11 @@ package com.taruc.foodbank
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import java.util.logging.Handler
 
 class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
@@ -56,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -67,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -78,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -89,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -111,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -122,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -133,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }
@@ -144,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, userDonationActivity::class.java
+                        this, UserDonationActivity::class.java
                     )
                     startActivity(intent)
                 }

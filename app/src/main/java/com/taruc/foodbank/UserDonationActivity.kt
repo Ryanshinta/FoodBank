@@ -1,8 +1,10 @@
 package com.taruc.foodbank
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,12 @@ class UserDonationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_donation)
+
+        val button = findViewById<Button>(R.id.btn_addDonation)
+        button.setOnClickListener{
+            val intent = Intent(this, UserNewDonationActivity::class.java)
+            startActivity(intent)
+        }
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

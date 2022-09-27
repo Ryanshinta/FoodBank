@@ -24,6 +24,10 @@
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/admin_activity.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/admin_activity_foodbank.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/menu/nav_menu.xml" value="0.3567708333333333" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_manage_donation.xml" value="0.33" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_donation.xml" value="0.1" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_food_bank.xml" value="0.1" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/donation_item.xml" value="0.1" />
       </map>
     </option>
   </component>

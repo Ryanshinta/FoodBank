@@ -13,9 +13,9 @@ import com.taruc.foodbank.entity.foodBank
  * [RecyclerView.Adapter] that can display a [foodBank].
  * TODO: Replace the implementation with code for your data type.
  */
-class FoodBackRecyclerViewAdapter(
+class FoodBankRecyclerViewAdapter(
     private val values: List<foodBank>
-) : RecyclerView.Adapter<FoodBackRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<FoodBankRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(

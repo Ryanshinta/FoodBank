@@ -1,9 +1,12 @@
 package com.taruc.foodbank
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 
@@ -22,18 +25,23 @@ class userFoodBankActivity: AppCompatActivity()  {
         setContentView(R.layout.activity_user_food_bank)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_user_food_bank)
 
+        binding.rvFoodBank.layoutManager = LinearLayoutManager(this)
+        binding.rvFoodBank.setHasFixedSize(true)
+
         db = FirebaseFirestore.getInstance()
+        foodBankList = arrayListOf()
 
         db.collection("foodbanks").get()
             .addOnSuccessListener {
                 if (!it.isEmpty){
                     for (data in it.documents){
-                        val foodBankObj:foodBank? = data.toObject(foodBank::class.java)
+                        Log.d(TAG,"Cached document data : ${data?.data}")
+                        val foodBankObj = data.toObject<foodBank>()
                         if (foodBankObj != null){
                             foodBankList.add(foodBankObj)
                         }
                     }
-                    binding.rvFoodBank.adapter = FoodBackRecyclerViewAdapter(foodBankList)
+                    binding.rvFoodBank.adapter = FoodBankRecyclerViewAdapter(foodBankList)
                 }
             }
             .addOnFailureListener{

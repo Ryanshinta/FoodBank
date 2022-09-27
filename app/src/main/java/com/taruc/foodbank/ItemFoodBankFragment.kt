@@ -8,17 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 import com.taruc.foodbank.entity.foodBank
+import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
  */
-class ItemFoodBackFragment : Fragment() {
+class ItemFoodBankFragment : Fragment() {
 
-    private lateinit var adapter: FoodBackRecyclerViewAdapter
+    private lateinit var adapter: FoodBankRecyclerViewAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var initFoodBankList:List<foodBank>
-
+    private lateinit var foodBankList: ArrayList<foodBank>
+    private lateinit var db: FirebaseFirestore
 
 
     private var columnCount = 1
@@ -37,7 +40,22 @@ class ItemFoodBackFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        db = FirebaseFirestore.getInstance()
 
+        db.collection("foodbanks").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty){
+                    for (data in it.documents){
+                        val foodBankObj:foodBank? = data.toObject(foodBank::class.java)
+                        if (foodBankObj != null){
+                            foodBankList.add(foodBankObj)
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener{
+                //Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -45,7 +63,7 @@ class ItemFoodBackFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-//                adapter = FoodBackRecyclerViewAdapter(listOf(foodBank))
+                adapter = FoodBankRecyclerViewAdapter(foodBankList)
             }
         }
         return view
@@ -59,7 +77,7 @@ class ItemFoodBackFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            ItemFoodBackFragment().apply {
+            ItemFoodBankFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

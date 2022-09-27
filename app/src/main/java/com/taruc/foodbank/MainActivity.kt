@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, admin_Activity_FoodBank::class.java
+                        this, userFoodBankActivity::class.java
                     )
                     startActivity(intent)
                 }

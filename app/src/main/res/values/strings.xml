@@ -38,4 +38,16 @@
     <string name="name">Name</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    //string used for spinner
+    <string-array name="array_foodBanks">
+        <item>AAA Food Bank</item>
+        <item>BBB Food Bank</item>
+        <item>CCC Food Bank</item>
+        <item>DDD Food Bank</item>
+        <item>EEE Food Bank</item>
+        <item>FFF Food Bank</item>
+        <item>GGG Food Bank</item>
+        <item>HHH Food Bank</item>
+    </string-array>
 </resources>

@@ -2,13 +2,15 @@ package com.taruc.foodbank
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TextView
-import android.widget.TimePicker
+import android.util.Log
+import android.widget.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.taruc.foodbank.entity.foodBank
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.min
 
 class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -23,18 +25,40 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
     var selectedYear = 0
     var selectedHour = 0
     var selectedMinute = 0
+    lateinit var foodbankNames:ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_new_donation)
 
         val buttonChoose = findViewById<Button>(R.id.btn_choose)
+        foodbankNames = arrayListOf()
 
         buttonChoose.setOnClickListener{
             getDateTimeCalender()
 
             DatePickerDialog(this,this,year,month,day).show()
         }
+
+        //get firestore data to spinner
+        val spinner: Spinner = findViewById(R.id.sp_foodBank)
+        val db = FirebaseFirestore.getInstance()
+//        var foodbanks = arrayListOf<foodBank>()
+
+        db.collection("foodbanks")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var foodBankName = document.toObject(foodBank::class.java).name
+                    foodbankNames.add(foodBankName)
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,foodbankNames)
+        spinner.adapter = adapter
     }
 
     private fun getDateTimeCalender(){

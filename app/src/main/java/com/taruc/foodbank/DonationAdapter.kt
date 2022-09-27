@@ -1,13 +1,17 @@
 package com.taruc.foodbank
 
+import android.content.ClipData.Item
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.google.type.DateTime
 import com.taruc.foodbank.entity.Donation
+
 
 class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerView.Adapter<DonationAdapter.DonationViewHolder>() {
 
@@ -22,6 +26,9 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
         holder.donateTo.text = donation.donateTo
         holder.food.text = donation.food
         holder.status.text = donation.status
+        holder.card.setOnClickListener{
+            Log.i("Card", "Card Clicked")
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,6 +44,7 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
 //        val pickupDateTime:
         val status: TextView = itemView.findViewById(R.id.tvStatus)
         val food: TextView = itemView.findViewById(R.id.tvFood)
+        val card:CardView = itemView.findViewById(R.id.card)
     }
 
 }

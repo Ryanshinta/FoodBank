@@ -1,8 +1,10 @@
 package com.taruc.foodbank
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -13,9 +15,9 @@ import com.taruc.foodbank.entity.foodBank
  * [RecyclerView.Adapter] that can display a [foodBank].
  * TODO: Replace the implementation with code for your data type.
  */
-class FoodBackRecyclerViewAdapter(
+class FoodBankRecyclerViewAdapter(
     private val values: List<foodBank>
-) : RecyclerView.Adapter<FoodBackRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<FoodBankRecyclerViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
@@ -35,6 +37,12 @@ class FoodBackRecyclerViewAdapter(
         //holder.foodBankImg.setImageResource(item.image)
         holder.foodBankAdd.text = item.address
         holder.foodBankTitle.text = item.name
+        holder.foodBankSelect.setOnClickListener {
+            Log.i("Button","click button")
+
+        }
+
+
 
     }
 
@@ -45,12 +53,14 @@ class FoodBackRecyclerViewAdapter(
         val foodBankImg:ImageView
         val foodBankTitle:TextView
         val foodBankAdd:TextView
+        val foodBankSelect:Button
 
         init {
 
             foodBankImg  = itemView.findViewById(R.id.ivFoodBankImg)
             foodBankTitle = itemView.findViewById(R.id.tvFoodBankName)
             foodBankAdd = itemView.findViewById(R.id.tvAdd)
+            foodBankSelect = itemView.findViewById(R.id.btSelect)
         }
 
     }

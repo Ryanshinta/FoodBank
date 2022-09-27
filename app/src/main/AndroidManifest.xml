@@ -18,16 +18,10 @@
         <activity
             android:name=".user_Activity_Event"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".admin_Activity_Event"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".UserDonationActivity"

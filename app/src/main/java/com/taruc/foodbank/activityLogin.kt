@@ -51,8 +51,8 @@ class activityLogin : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.i("Login Success",task.result.toString())
                     Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this,UserProfileActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this,UserProfileActivity::class.java)
+//                    startActivity(intent)
                     finish()
                 } else {
                     Log.e("Login error",task.exception.toString())

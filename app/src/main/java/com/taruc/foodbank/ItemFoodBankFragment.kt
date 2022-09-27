@@ -1,6 +1,7 @@
 package com.taruc.foodbank
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.taruc.foodbank.entity.foodBank
@@ -29,7 +31,6 @@ class ItemFoodBankFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -40,8 +41,9 @@ class ItemFoodBankFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        //val binding = FragmentMenuBinding.inflate(inflater, container, false)
         db = FirebaseFirestore.getInstance()
-
+        val button:Button = view.findViewById(R.id.btSelect)
         db.collection("foodbanks").get()
             .addOnSuccessListener {
                 if (!it.isEmpty){
@@ -66,6 +68,11 @@ class ItemFoodBankFragment : Fragment() {
                 adapter = FoodBankRecyclerViewAdapter(foodBankList)
             }
         }
+
+        button.setOnClickListener {
+            Log.i("Button","click button")
+        }
+
         return view
     }
 
@@ -83,4 +90,5 @@ class ItemFoodBankFragment : Fragment() {
                 }
             }
     }
+
 }

@@ -1,58 +1,63 @@
 package com.taruc.foodbank
 
-import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.taruc.foodbank.databinding.ActivityLoginBinding
-import com.taruc.foodbank.databinding.ActivityVolunteerBinding
-import com.taruc.foodbank.entity.role
+
 
 class VolunteerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityVolunteerBinding
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_volunteer)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_volunteer)
 
-        auth = FirebaseAuth.getInstance();
-        db = Firebase.firestore
+        val btnVolRegister = findViewById<Button>(R.id.btnVolRegister)
 
-        binding.btnVolRegister.setOnClickListener() {
-            registerVolunteer()
+        btnVolRegister.setOnClickListener(){
+            val auth = FirebaseAuth.getInstance()
+
+            var name = findViewById<TextView>(R.id.tvVolName)
+            var age = findViewById<TextView>(R.id.tvVolAge)
+            var contact = findViewById<TextView>(R.id.tvVolContact)
+            var Useremail = auth.currentUser?.email.toString()
+
+            val Volname = name.text.toString()
+            val Volage = age.text.toString()
+            val Volcontact = contact.text.toString()
+            val VolEmail = Useremail
+
+
+            saveVolunteer(Volname, Volage, Volcontact, VolEmail )
+
+            if (name != name) {
+                Toast.makeText(applicationContext, "Please enter your name!", Toast.LENGTH_LONG).show()
+            }
+            if (age != age) {
+                Toast.makeText(applicationContext, "Please enter your age!", Toast.LENGTH_LONG).show()
+            }
+            if (contact != contact) {
+                Toast.makeText(applicationContext, "Please enter your Phone number!", Toast.LENGTH_LONG).show()
+            }
         }
+
     }
 
-    private fun registerVolunteer() {
-        val name: String = binding.tvVolName.text.toString()
-        val age: String = binding.tvVolAge.text.toString()
-        val email: String = binding.tvVolEmail.text.toString()
-        //val cbFoodBankVolunteer = binding.cbFoodBankHelper
-        //val cbEventVolunteer = binding.cbEventHelper
-        val button = binding.btnVolRegister
+    private fun saveVolunteer(Volname: String, Volage : String, Volcontact : String, Volemail : String){
+        val db = FirebaseFirestore.getInstance()
+        val volunteer = hashMapOf(
+            "Name" to Volname,
+            "Age" to Volage,
+            "Contact" to Volcontact,
+            "Email" to Volemail
+        )
 
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(applicationContext, "Please enter your name!", Toast.LENGTH_LONG).show()
-            return;
-        }
-        if (TextUtils.isEmpty(age)) {
-            Toast.makeText(applicationContext, "Please enter your age!", Toast.LENGTH_LONG).show()
-            return;
-        }
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(applicationContext, "Please enter your email!", Toast.LENGTH_LONG).show()
-            return;
-        }
-
+        db.collection("volunteer")
+            .document().set(volunteer)
+            .addOnSuccessListener { Toast.makeText(this,"You have became a volunteer", Toast.LENGTH_SHORT).show()}
+            .addOnFailureListener {Toast.makeText(this,"Something went wrong", Toast.LENGTH_SHORT).show()}
     }
+
+
 }

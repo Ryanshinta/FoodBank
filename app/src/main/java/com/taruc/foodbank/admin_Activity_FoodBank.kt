@@ -68,6 +68,7 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
         map.getMapAsync(this)
         map.onCreate(savedInstanceState)
 
+
     }
 
     override fun onResume() {
@@ -96,6 +97,7 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
     }
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0;
+        mMap.uiSettings.isZoomControlsEnabled = true
         val location = LatLng(lat,lng)
         mMap.addMarker(MarkerOptions()
             .position(location)

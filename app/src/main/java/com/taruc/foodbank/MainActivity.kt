@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        //actionBar?.setIcon(R.drawable.logo)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         auth = FirebaseAuth.getInstance()
 

@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,15 +29,18 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
         //binding.tvFoodBankName.text = foodBankName
         map = binding.mapView
         db = FirebaseFirestore.getInstance()
+        binding.rvFoodList.layoutManager = LinearLayoutManager(this)
 
         val foodBankDB= db.collection("foodbanks")
         foodBankDB.whereEqualTo("name",foodBankName).get().addOnSuccessListener {
             for (document in it.documents){
                 Log.d("TAG", "${document.id} => ${document.data}")
-                 val foodBankInstance = document.toObject<foodBank>()!!
-                val foodList = foodBankInstance.foods
-
+                val foodBankInstance = document.toObject<foodBank>()!!
+                val foodList = foodBankInstance.foods!!
+                val foodNameList = foodList.keys.toList()
+                Log.d("FoodList", "$foodList")
                 binding.tvFoodBankName.text = foodBankInstance.name
+                binding.rvFoodList.adapter = FoodListAdapter(foodList,foodNameList)
 
             }
         }.addOnFailureListener{

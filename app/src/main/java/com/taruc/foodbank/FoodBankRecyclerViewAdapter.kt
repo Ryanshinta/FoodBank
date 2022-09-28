@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 
 import com.taruc.foodbank.databinding.FragmentItemBinding
+import com.taruc.foodbank.entity.food
 import com.taruc.foodbank.entity.foodBank
 
 /**

@@ -8,7 +8,7 @@ data class foodBank(
     val name:String = "",
     //val image:String,
     val address:String = "",
-    val foods:List<food> ?= null,
+    val foods:Map<String,Int> ?= null,
     val volunteers: ArrayList<user> ?= null,
     val description:String = "",
     val location: GeoPoint ?= null

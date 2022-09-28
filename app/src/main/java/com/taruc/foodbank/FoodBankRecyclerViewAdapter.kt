@@ -1,5 +1,6 @@
 package com.taruc.foodbank
 
+import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 
 import com.taruc.foodbank.databinding.FragmentItemBinding
 import com.taruc.foodbank.entity.foodBank
@@ -35,11 +37,13 @@ class FoodBankRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         //holder.foodBankImg.setImageResource(item.image)
+
         holder.foodBankAdd.text = item.address
         holder.foodBankTitle.text = item.name
         holder.foodBankSelect.setOnClickListener {
-            Log.i("Button","click button")
-
+            Log.i("Button","click button"+item.name)
+            val intent = Intent(holder.itemView.context, admin_Activity_FoodBank::class.java)
+            holder.itemView.context.startActivity(intent)
         }
 
 

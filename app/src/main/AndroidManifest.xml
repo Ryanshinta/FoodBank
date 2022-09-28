@@ -35,6 +35,9 @@
             android:name=".admin_Activity_Event"
             android:exported="false"></activity>
         <activity
+            android:name=".user_Activity_Event_Detail"
+            android:exported="false"></activity>
+        <activity
             android:name=".UserDonationActivity"
             android:exported="false" />
         <activity

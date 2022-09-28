@@ -18,6 +18,8 @@ class user_Activity_Event_Detail : AppCompatActivity() {
             val imgEvent = findViewById<ImageView>()
 */
             tvEventName.text = event.name
+
+
 /*
             imgEvent.setImageResource
 */

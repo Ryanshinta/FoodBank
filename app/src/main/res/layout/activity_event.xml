@@ -8,7 +8,7 @@
 
 
     <android.widget.SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchEvent"
         android:layout_width="280dp"
         android:layout_height="42dp"
         android:layout_marginStart="65dp"
@@ -48,10 +48,10 @@
         android:id="@+id/rvEvent"
         android:layout_width="374dp"
         android:layout_height="395dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="19dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        app:layout_constraintTop_toBottomOf="@+id/searchEvent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

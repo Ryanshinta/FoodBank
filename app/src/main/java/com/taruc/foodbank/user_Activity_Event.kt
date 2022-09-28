@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.widget.ArrayAdapter
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,40 +26,70 @@ class user_Activity_Event : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventArrayList: ArrayList<event>
     private lateinit var eventAdapter:EventAdapter
+    /*private lateinit var tempArrayList: ArrayList<event>
+    private lateinit var searchEvent: SearchView
+    private lateinit var tempAdapter: ArrayAdapter<*>*/
     private lateinit var db : FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
 
+        /*var counter:Int = 0
 
+        searchEvent = findViewById(R.id.searchEvent)*/
 
         recyclerView = findViewById(R.id.rvEvent)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         eventArrayList = arrayListOf()
+
+/*
+        tempArrayList = arrayListOf<event>()
+*/
         eventAdapter = EventAdapter(eventArrayList)
 
+
+
+
         recyclerView.adapter = eventAdapter
-        /*eventAdapter.setOnItemClickListener(object : EventAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-
-                Toast.makeText(this@user_Activity_Event, "Click Event no. $position", Toast.LENGTH_SHORT).show()
-            }
-
-        })*/
-
 
 
         setDataInList()
 
+/*
+        tempAdapter = ArrayAdapter<event>(this, android.R.layout.simple_list_item_1, tempArrayList)
+*/
+
+        /*searchEvent.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                for (i in 0 until tempArrayList.size) {
+
+
+                    if (tempArrayList.get(i).name.equals(query)) {
+                        tempAdapter.filter.filter(query)
+                        counter+= 1
+                    } *//*else {
+                        Toast.makeText(this@MainActivity, "No Match found", Toast.LENGTH_LONG)
+                            .show()
+                    }*//*
+                }
+                eventArrayList = tempArrayList
+                eventAdapter.notifyDataSetChanged()
+                return false
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                tempAdapter.filter.filter(newText)
+                return false
+            }
+        })
+*/
         eventAdapter.onItemClick = {
             val intent = Intent(this, user_Activity_Event_Detail::class.java)
             intent.putExtra("event", it)
             startActivity(intent)
         }
     }
-
 
 
     private fun setDataInList(){
@@ -79,6 +112,9 @@ class user_Activity_Event : AppCompatActivity() {
                         eventArrayList.add((dc.document.toObject(event::class.java)))
                     }
                 }
+/*
+                tempArrayList.addAll(eventArrayList)
+*/
                 eventAdapter.notifyDataSetChanged()
             }
         })

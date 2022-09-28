@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, UserDonationActivity::class.java
+                        this, VolunteerActivity::class.java
                     )
                     startActivity(intent)
                 }

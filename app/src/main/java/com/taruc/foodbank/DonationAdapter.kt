@@ -1,6 +1,5 @@
 package com.taruc.foodbank
 
-import android.content.ClipData.Item
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,7 +43,7 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
 //        val foodType:
 //        val pickupAddress:
 //        val pickupDateTime:
-        val status: TextView = itemView.findViewById(R.id.tvStatus)
+        val status: TextView = itemView.findViewById(R.id.tvState)
         val food: TextView = itemView.findViewById(R.id.tvFood)
         val card:CardView = itemView.findViewById(R.id.card)
     }

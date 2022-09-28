@@ -43,6 +43,7 @@ class FoodBankRecyclerViewAdapter(
         holder.foodBankSelect.setOnClickListener {
             Log.i("Button","click button"+item.name)
             val intent = Intent(holder.itemView.context, admin_Activity_FoodBank::class.java)
+            intent.putExtra("foodBankName",item.name)
             holder.itemView.context.startActivity(intent)
         }
 

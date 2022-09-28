@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.taruc.foodbank.entity.Donation
 import com.taruc.foodbank.entity.foodBank
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.min
 
 class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     var day = 0
@@ -34,17 +35,37 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         val buttonChoose = findViewById<Button>(R.id.btn_choose)
         foodbankNames = arrayListOf()
 
-        buttonChoose.setOnClickListener{
+        buttonChoose.setOnClickListener {
             getDateTimeCalender()
 
-            DatePickerDialog(this,this,year,month,day).show()
+            DatePickerDialog(this, this, year, month, day).show()
+        }
+
+        val buttonDonate = findViewById<Button>(R.id.btn_confirmDonation)
+        buttonDonate.setOnClickListener{
+            val auth = FirebaseAuth.getInstance()
+            val type = findViewById<RadioGroup>(R.id.radio_group)
+
+            var donateTo = findViewById<Spinner>(R.id.sp_foodBank)
+            val donorEmail = auth.currentUser?.email.toString()
+            var food = findViewById<TextView>(R.id.tf_foodItem)
+            var foodQty = findViewById<TextView>(R.id.tf_foodQty)
+            var foodType = type.checkedRadioButtonId
+            var pickupAddress = findViewById<TextView>(R.id.tf_pickupLocation)
+            var pickupDateTime = findViewById<TextView>(R.id.tf_pickedDateTime)
+            var status = "Pending"
+
+            val foodBank = donateTo.selectedItem.toString()
+            val email = donorEmail
+            val foodItem = food.text.toString()
+
+            saveDonation(foodBank, email, foodItem)
         }
 
         //get firestore data to spinner
-        val spinner: Spinner = findViewById(R.id.sp_foodBank)
         val db = FirebaseFirestore.getInstance()
-//        var foodbanks = arrayListOf<foodBank>()
 
+        val spinner: Spinner = findViewById<Spinner>(R.id.sp_foodBank)
         db.collection("foodbanks")
             .get()
             .addOnSuccessListener { result ->
@@ -57,8 +78,24 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
             }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,foodbankNames)
+        foodbankNames = arrayListOf("--Choose a food bank--")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, foodbankNames)
         spinner.adapter = adapter
+        spinner.setSelection(0)
+    }
+
+    fun saveDonation(foodBank: String, email : String, foodItem : String){
+        val db = FirebaseFirestore.getInstance()
+        val donation = hashMapOf(
+            "donateTo" to foodBank,
+            "donorEmail" to email,
+            "food" to foodItem
+        )
+
+        db.collection("donations")
+            .document().set(donation)
+            .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()}
+            .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
     }
 
     private fun getDateTimeCalender(){
@@ -83,7 +120,7 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         selectedHour = hourOfDay
         selectedMinute = minute
 
-        val choosedDateTime = findViewById<TextView>(R.id.tv_pickedDateTime)
+        val choosedDateTime = findViewById<TextView>(R.id.tf_pickedDateTime)
         choosedDateTime.text = "$selectedDay/$selectedMonth/$selectedYear  $selectedHour:$selectedMinute"
     }
 }

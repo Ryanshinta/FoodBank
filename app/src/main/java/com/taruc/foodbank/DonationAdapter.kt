@@ -26,7 +26,9 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
         holder.food.text = donation.food
         holder.status.text = donation.status
         holder.card.setOnClickListener{
-            Log.i("Card", "Card Clicked")
+            val context = holder.itemView.context
+            val intent = Intent(context, DonationDetailsActivity ::class.java)
+            context.startActivity(intent)
         }
     }
 

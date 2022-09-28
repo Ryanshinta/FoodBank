@@ -23,8 +23,6 @@ class FoodListAdapter (private val foodList:Map<String,Int>,listName: List<Strin
        // var foodMap: String = foodList.containsKey()
         holder.foodName.text = listName.get(position)
         holder.foodQty.text = foodList.get(listName.get(position)).toString()
-//        holder.foodName.text =
-//        holder.foodQty.text =
     }
 
     override fun getItemCount(): Int {

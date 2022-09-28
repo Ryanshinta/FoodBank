@@ -39,7 +39,7 @@ class FoodBankRecyclerViewAdapter(
         val item = values[position]
         //holder.foodBankImg.setImageResource(item.image)
 
-        holder.foodBankAdd.text = item.address
+       // holder.foodBankAdd.text = item.address
         holder.foodBankTitle.text = item.name
         holder.foodBankSelect.setOnClickListener {
             Log.i("Button","click button"+item.name)
@@ -58,14 +58,14 @@ class FoodBankRecyclerViewAdapter(
 
         val foodBankImg:ImageView
         val foodBankTitle:TextView
-        val foodBankAdd:TextView
+        //val foodBankAdd:TextView
         val foodBankSelect:Button
 
         init {
 
             foodBankImg  = itemView.findViewById(R.id.ivFoodBankImg)
             foodBankTitle = itemView.findViewById(R.id.tvFoodBankName)
-            foodBankAdd = itemView.findViewById(R.id.tvAdd)
+            //foodBankAdd = itemView.findViewById(R.id.tvAdd)
             foodBankSelect = itemView.findViewById(R.id.btSelect)
         }
 

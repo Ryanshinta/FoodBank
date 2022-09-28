@@ -6,10 +6,14 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.toObject
 import com.taruc.foodbank.databinding.ActivityAdminFoodBankBinding
 import com.taruc.foodbank.entity.foodBank
@@ -19,6 +23,9 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
     private lateinit var map:MapView
     private lateinit var mMap:GoogleMap
     private lateinit var db: FirebaseFirestore
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
+
     //private lateinit var foodBankInstance:foodBank
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +48,13 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
                 Log.d("FoodList", "$foodList")
                 binding.tvFoodBankName.text = foodBankInstance.name
                 binding.rvFoodList.adapter = FoodListAdapter(foodList,foodNameList)
+                lat = foodBankInstance.lat
+                lng = foodBankInstance.lng
+
+                binding.tvContect.text = foodBankInstance.contactNumber
+                binding.tvDescri.text = foodBankInstance.description
+                binding.tvAddress.text = foodBankInstance.address
+
 
             }
         }.addOnFailureListener{
@@ -82,13 +96,13 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback {
     }
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0;
-//        val location = LatLng(3.214788,101.7267968)
-//        mMap.addMarker(MarkerOptions()
-//            .position(location)
-//            .title("Marker in Sydney"))
-//        mMap.setMinZoomPreference(15.0f)
-//        mMap.setMaxZoomPreference(20.0f)
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        val location = LatLng(lat,lng)
+        mMap.addMarker(MarkerOptions()
+            .position(location)
+            .title("Marker in Sydney"))
+        mMap.setMinZoomPreference(15.0f)
+        mMap.setMaxZoomPreference(20.0f)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
 
     }
 }

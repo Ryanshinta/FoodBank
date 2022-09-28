@@ -1,5 +1,6 @@
 package com.taruc.foodbank
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,10 +36,25 @@ class user_Activity_Event : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         eventArrayList = arrayListOf()
         eventAdapter = EventAdapter(eventArrayList)
+
         recyclerView.adapter = eventAdapter
+        /*eventAdapter.setOnItemClickListener(object : EventAdapter.onItemClickListener{
+            override fun onItemClick(position: Int) {
+
+                Toast.makeText(this@user_Activity_Event, "Click Event no. $position", Toast.LENGTH_SHORT).show()
+            }
+
+        })*/
+
 
 
         setDataInList()
+
+        eventAdapter.onItemClick = {
+            val intent = Intent(this, user_Activity_Event_Detail::class.java)
+            intent.putExtra("event", it)
+            startActivity(intent)
+        }
     }
 
 

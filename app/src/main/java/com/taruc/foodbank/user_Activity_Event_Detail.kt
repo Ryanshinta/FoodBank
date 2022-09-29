@@ -3,11 +3,18 @@ package com.taruc.foodbank
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.provider.CalendarContract
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.taruc.foodbank.entity.event
 import java.time.Duration
 import java.time.LocalDateTime
@@ -16,7 +23,12 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class user_Activity_Event_Detail : AppCompatActivity() {
+class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
+
+    private lateinit var map: MapView
+    private lateinit var mMap:GoogleMap
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +46,19 @@ class user_Activity_Event_Detail : AppCompatActivity() {
 /*
             val imgEvent = findViewById<ImageView>()
 */
-
+            lat = event.latitude!!.toDouble()
+            lng = event.longtitude!!.toDouble()
             tvEventName.text = event.name
             tfDescription.text = event.description
             tfDateStart.text = event.dateStart.toString()
             tfDateEnd.text = event.dateEnd.toString()
             tfAddress.text = event.address
+
+            map = findViewById<MapView>(R.id.gMap)
+
+            map.getMapAsync(this)
+            map.onCreate(savedInstanceState)
+
 
 
             btnCalendar.setOnClickListener(){
@@ -90,4 +109,43 @@ class user_Activity_Event_Detail : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        map.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        map.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        map.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        map.onDestroy()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        map.onSaveInstanceState(outState)
+    }
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0;
+        mMap.uiSettings.isZoomControlsEnabled = true
+        val location = LatLng(lat,lng)
+        mMap.addMarker(
+            MarkerOptions()
+            .position(location)
+            .title("Marker in Sydney"))
+        mMap.setMinZoomPreference(15.0f)
+        mMap.setMaxZoomPreference(20.0f)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+
+    }
 }
+

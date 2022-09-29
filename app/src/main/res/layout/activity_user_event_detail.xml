@@ -28,8 +28,9 @@
         app:layout_constraintTop_toBottomOf="@+id/imgEventDetail" />
 
     <LinearLayout
-        android:layout_width="389dp"
-        android:layout_height="303dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="380dp"
+        android:layout_height="234dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="22dp"
         android:orientation="vertical"
@@ -39,7 +40,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -60,6 +61,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -79,6 +81,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -98,6 +101,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -126,4 +130,13 @@
         android:text="Remind Me (Google Calendar)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/gMap"
+        android:layout_width="379dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

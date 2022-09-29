@@ -20,6 +20,31 @@
         android:theme="@style/Theme.FoodBank"
         tools:targetApi="31">
         <activity
+            android:name=".AdminApplicationActivity"
+            android:label="Admin Applications"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".AdminApplicationDetailsActivity"
+            android:label="Admin Application Details"
+            android:exported="false"
+            android:parentActivityName=".AdminApplicationActivity"/>
+        <activity
+            android:name=".UserApplicationDetailsActivity"
+            android:label="Application Details"
+            android:exported="false"
+            android:parentActivityName=".UserApplicationActivity"/>
+        <activity
+            android:name=".UserNewApplicationActivity"
+            android:exported="false"
+            android:label="New Application"
+            android:parentActivityName=".UserApplicationActivity" />
+        <activity
+            android:name=".UserApplicationActivity"
+            android:exported="false"
+            android:label="Applications"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".admin_Activity_New_Event"
             android:exported="false">
             <meta-data

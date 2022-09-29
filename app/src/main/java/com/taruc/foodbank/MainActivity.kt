@@ -101,6 +101,129 @@ class MainActivity : AppCompatActivity() {
                             this, admin_activity::class.java
                         )
                         startActivity(intent)
+                        navView.setNavigationItemSelectedListener {
+                            val id = it.itemId
+                            when (id) {
+                                R.id.nav_food_bank -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Food Bank",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, admin_Activity_FoodBank::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_donation -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Donation",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, AdminDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_application -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Application",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserApplicationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_event -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Event",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, admin_Activity_Event::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_volunteer -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Volunteer",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, VolunteerActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_user_profile -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked My Profile",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserProfileActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_logout -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Logout",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    auth.signOut()
+                                    finish()
+                                    startActivity(intent)
+
+                                }
+                                R.id.nav_share -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Share",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_setting -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Setting",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_about_us -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked About Us",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, AdminDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                else -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "No available",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                            true
+                        }
                     }
                 }
             }
@@ -139,7 +262,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, UserDonationActivity::class.java
+                        this, UserApplicationActivity::class.java
                     )
                     startActivity(intent)
                 }

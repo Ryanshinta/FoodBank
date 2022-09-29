@@ -1,6 +1,6 @@
 package com.taruc.foodbank
 
-import android.content.ClipData.Item
+import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.taruc.foodbank.entity.Donation
 
 
@@ -22,14 +23,45 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
     }
 
     override fun onBindViewHolder(holder: DonationViewHolder, position: Int) {
+        val auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.email.toString()
+        var userRole = ""
+
+        val db = FirebaseFirestore.getInstance()
+        val usersRef = db.collection("users")
+        usersRef.document(uid).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                if (document.exists()) {
+                    val role = document.getString("role")
+                    userRole = role.toString()
+                } else {
+                    Log.d(ContentValues.TAG, "The document doesn't exist.")
+                }
+            } else {
+                task.exception?.message?.let {
+                    Log.d(ContentValues.TAG, it)
+                }
+            }
+        }
+
         val donation:Donation = donationList[position]
         holder.donateTo.text = donation.donateTo
         holder.food.text = donation.food
         holder.status.text = donation.status
+        holder.created.text = donation.dateTimeCreated
         holder.card.setOnClickListener{
             val context = holder.itemView.context
-            val intent = Intent(context, DonationDetailsActivity ::class.java)
+            if(userRole == "USER"){
+                val intent = Intent(context, UserDonationDetailsActivity ::class.java)
+                intent.putExtra("dateTimeCreated",donationList[position].dateTimeCreated)
+                context.startActivity(intent)
+            }
+            if(userRole == "ADMIN"){
+            val intent = Intent(context, AdminDonationDetailsActivity ::class.java)
+            intent.putExtra("dateTimeCreated",donationList[position].dateTimeCreated)
             context.startActivity(intent)
+        }
         }
     }
 
@@ -47,6 +79,7 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
         val status: TextView = itemView.findViewById(R.id.tvStatus)
         val food: TextView = itemView.findViewById(R.id.tvFood)
         val card:CardView = itemView.findViewById(R.id.card)
+        val created:TextView = itemView.findViewById(R.id.tv_dtCreated)
     }
 
 }

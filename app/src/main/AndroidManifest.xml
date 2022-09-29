@@ -21,7 +21,19 @@
         android:theme="@style/Theme.FoodBank"
         tools:targetApi="31">
         <activity
-            android:name=".DonationDetailsActivity"
+            android:name=".AdminDonationDetailsActivity"
+            android:label="Admin Donation Details"
+            android:parentActivityName=".AdminDonationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDonationActivity"
+            android:label="Admin Donations"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDonationDetailsActivity"
+            android:label="Donation Details"
+            android:parentActivityName=".UserDonationActivity"
             android:exported="false" />
 
         <meta-data
@@ -30,15 +42,19 @@
 
         <activity
             android:name=".user_Activity_Event"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".admin_Activity_Event"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".UserDonationActivity"
+            android:label="Donations"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".UserNewDonationActivity"
+            android:label="New Donation"
+            android:parentActivityName=".UserDonationActivity"
             android:exported="false" />
         <activity
             android:name=".UserProfileActivity"

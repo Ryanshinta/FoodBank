@@ -9,11 +9,12 @@ import java.util.*
 data class event(
 
     var address:String?= null,
-    var dateStart: Timestamp?= null,
-    var dateEnd: Timestamp?= null,
+    var dateEnd: String?= null,
+    var dateStart: String?= null,
+
     var description:String?= null,
     var image:String?= null,
-    var lastModified: Timestamp?= null,
+    var lastModified: String?= null,
 
     var latitude:Double?= null,
     var longtitude:Double?= null,
@@ -26,11 +27,11 @@ data class event(
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
-        parcel.readParcelable(Timestamp::class.java.classLoader),
-        parcel.readParcelable(Timestamp::class.java.classLoader),
         parcel.readString(),
         parcel.readString(),
-        parcel.readParcelable(Timestamp::class.java.classLoader),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readString(),
@@ -44,11 +45,11 @@ data class event(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(address)
-        parcel.writeParcelable(dateStart, flags)
-        parcel.writeParcelable(dateEnd, flags)
+        parcel.writeString(dateEnd)
+        parcel.writeString(dateStart)
         parcel.writeString(description)
         parcel.writeString(image)
-        parcel.writeParcelable(lastModified, flags)
+        parcel.writeString(lastModified)
         parcel.writeDouble(latitude!!)
         parcel.writeDouble(longtitude!!)
         parcel.writeString(name)

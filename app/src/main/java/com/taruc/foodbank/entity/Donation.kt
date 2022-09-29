@@ -2,6 +2,7 @@ package com.taruc.foodbank.entity
 
 import android.widget.TextView
 import com.google.type.DateTime
+import java.time.LocalDateTime
 
 data class Donation(
     val donateTo: String ?= null,
@@ -11,5 +12,6 @@ data class Donation(
 //    val pickupAddress: String ?= null,
 //    val pickupDateTime: TextView? = null,
     val status: String ?= null,
-    val food: String ?= null
+    val food: String ?= null,
+    val dateTimeCreated: String?= null
 )

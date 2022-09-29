@@ -3,14 +3,19 @@ package com.taruc.foodbank
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.DateTime
 import com.taruc.foodbank.entity.Donation
 import com.taruc.foodbank.entity.foodBank
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,11 +31,15 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
     var selectedYear = 0
     var selectedHour = 0
     var selectedMinute = 0
+    lateinit var radioButton : RadioButton
     lateinit var foodbankNames:ArrayList<String>
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_new_donation)
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val buttonChoose = findViewById<Button>(R.id.btn_choose)
         foodbankNames = arrayListOf()
@@ -58,8 +67,14 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
             val foodBank = donateTo.selectedItem.toString()
             val email = donorEmail
             val foodItem = food.text.toString()
+            val quantity = foodQty.text.toString().toInt()
+            radioButton = findViewById(foodType)
+            val typeOfFood = radioButton.text.toString()
+            val address = pickupAddress.text.toString()
+            val dateTime = pickupDateTime.text.toString()
+            val dtCreated = LocalDateTime.now().toString()
 
-            saveDonation(foodBank, email, foodItem)
+            saveDonation(foodBank, email, foodItem, quantity, typeOfFood, address, dateTime, status, dtCreated)
         }
 
         //get firestore data to spinner
@@ -84,16 +99,23 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         spinner.setSelection(0)
     }
 
-    fun saveDonation(foodBank: String, email : String, foodItem : String){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveDonation(foodBank: String, email : String, foodItem : String, quantity : Int, typeOfFood : String, address : String, dateTime : String, status : String, dtCreated : String){
         val db = FirebaseFirestore.getInstance()
         val donation = hashMapOf(
             "donateTo" to foodBank,
             "donorEmail" to email,
-            "food" to foodItem
+            "food" to foodItem,
+            "foodQty" to quantity,
+            "foodType" to typeOfFood,
+            "pickupAddress" to address,
+            "pickupDateTime" to dateTime,
+            "status" to status,
+            "dateTimeCreated" to dtCreated
         )
 
         db.collection("donations")
-            .document().set(donation)
+            .document(dtCreated).set(donation)
             .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()}
             .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
     }
@@ -121,6 +143,12 @@ class UserNewDonationActivity : AppCompatActivity(), DatePickerDialog.OnDateSetL
         selectedMinute = minute
 
         val choosedDateTime = findViewById<TextView>(R.id.tf_pickedDateTime)
-        choosedDateTime.text = "$selectedDay/$selectedMonth/$selectedYear  $selectedHour:$selectedMinute"
+        var timeFrame = ""
+        if (selectedHour >= 12){
+            timeFrame = "pm"
+        }else{
+            timeFrame = "am"
+        }
+        choosedDateTime.text = "$selectedDay/$selectedMonth/$selectedYear  $selectedHour:$selectedMinute $timeFrame"
     }
 }

@@ -36,10 +36,19 @@
             android:value="AIzaSyD_uV7QvXIcjh3dnu13hO_GzMU_dIC488Y" />
 
         <activity
-            android:name=".AdminNewFoodBankActivity"
+            android:name=".AdminDonationDetailsActivity"
+            android:label="Admin Donation Details"
+            android:parentActivityName=".AdminDonationActivity"
             android:exported="false" />
         <activity
-            android:name=".DonationDetailsActivity"
+            android:name=".AdminDonationActivity"
+            android:label="Admin Donations"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDonationDetailsActivity"
+            android:label="Donation Details"
+            android:parentActivityName=".UserDonationActivity"
             android:exported="false" />
         <activity
             android:name=".user_Activity_Event"
@@ -52,9 +61,13 @@
             android:exported="false" />
         <activity
             android:name=".UserDonationActivity"
+            android:label="Donations"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".UserNewDonationActivity"
+            android:label="New Donation"
+            android:parentActivityName=".UserDonationActivity"
             android:exported="false" />
         <activity
             android:name=".UserProfileActivity"

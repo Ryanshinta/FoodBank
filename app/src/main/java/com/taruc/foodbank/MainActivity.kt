@@ -107,11 +107,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-
-
-
-
         navView.setNavigationItemSelectedListener {
             val id = it.itemId
             when (id) {
@@ -221,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, UserDonationActivity::class.java
+                        this, AdminDonationActivity::class.java
                     )
                     startActivity(intent)
                 }

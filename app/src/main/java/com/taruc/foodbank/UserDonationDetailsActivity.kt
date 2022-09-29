@@ -1,17 +1,18 @@
 package com.taruc.foodbank
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import com.google.common.collect.Maps
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserDonationDetailsActivity : AppCompatActivity() {
-//    lateinit var donation : ArrayList<>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_donation_details)
@@ -32,12 +33,25 @@ class UserDonationDetailsActivity : AppCompatActivity() {
         val datetime = findViewById<TextView>(R.id.tf_pickedDateTime)
         val status = findViewById<TextView>(R.id.tf_status)
 
+        val backButton = findViewById<Button>(R.id.btn_back)
+        val cancelButton = findViewById<Button>(R.id.btn_cancelDonation)
         val db = FirebaseFirestore.getInstance()
+
+        cancelButton.setOnClickListener{
+            db.collection("donations").document(created.toString()).update("status", "Failed")
+            status.text = "Failed"
+        }
+
+        backButton.setOnClickListener{
+            val intent = Intent(this, UserDonationActivity::class.java)
+            startActivity(intent)
+        }
+
 //        donation = arrayListOf()
         db.collection("donations")
             .document(created.toString())
             .get()
-            .addOnCompleteListener{ task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document.exists()) {

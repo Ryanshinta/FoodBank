@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +46,7 @@ class AdminDonationActivity : AppCompatActivity() {
 
         donationList = arrayListOf()
         db = FirebaseFirestore.getInstance()
-
+        val totalDonation = findViewById<TextView>(R.id.tvDescription)
         //get current user email
         val auth = FirebaseAuth.getInstance()
 
@@ -65,6 +62,7 @@ class AdminDonationActivity : AppCompatActivity() {
                 }
                 recyclerView.adapter = DonationAdapter(donationList)
             }
+            totalDonation.text = "You have ${donationList.size.toString()} donation this year."
         }
             .addOnFailureListener {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()

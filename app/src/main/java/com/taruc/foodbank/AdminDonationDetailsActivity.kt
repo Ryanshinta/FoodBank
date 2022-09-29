@@ -1,12 +1,14 @@
 package com.taruc.foodbank
 
 import android.content.ContentValues
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -38,7 +40,25 @@ class AdminDonationDetailsActivity : AppCompatActivity() {
         val datetime = findViewById<TextView>(R.id.tf_pickedDateTime)
         val status = findViewById<TextView>(R.id.tf_status)
 
+        val backButton = findViewById<Button>(R.id.btn_back)
+        val cancelButton = findViewById<Button>(R.id.btn_cancelDonation)
+        val completeButton = findViewById<Button>(R.id.btn_completeDonation)
         val db = FirebaseFirestore.getInstance()
+
+        completeButton.setOnClickListener{
+            db.collection("donations").document(created.toString()).update("status", "Completed")
+            status.text = "Completed"
+        }
+
+        cancelButton.setOnClickListener{
+            db.collection("donations").document(created.toString()).update("status", "Failed")
+            status.text = "Failed"
+        }
+
+        backButton.setOnClickListener{
+            val intent = Intent(this, AdminDonationActivity::class.java)
+            startActivity(intent)
+        }
 //        donation = arrayListOf()
         db.collection("donations")
             .document(created.toString())

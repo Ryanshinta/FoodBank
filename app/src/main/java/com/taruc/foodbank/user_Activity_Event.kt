@@ -29,9 +29,6 @@ class user_Activity_Event : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventArrayList: ArrayList<event>
     private lateinit var eventAdapter:EventAdapter
-    /*private lateinit var tempArrayList: ArrayList<event>
-    private lateinit var searchEvent: SearchView
-    private lateinit var tempAdapter: ArrayAdapter<*>*/
     private lateinit var db : FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {

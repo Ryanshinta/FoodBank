@@ -22,6 +22,7 @@ class EventAdapter(private val eventList: ArrayList<event>) : RecyclerView.Adapt
         val itemHolder = LayoutInflater.from(parent.context).inflate(R.layout.grid_layout_user_event, parent, false)
         return EventViewHolder(itemHolder)
 
+
     }
 
     override fun getItemCount(): Int {
@@ -35,6 +36,7 @@ class EventAdapter(private val eventList: ArrayList<event>) : RecyclerView.Adapt
 
 //        holder.imgevent.setImageResource(event.image)
         holder.tvEvent.text=event.name
+        holder.tvDuration.text = "Start From : "+event.dateStart
 
         holder.itemView.findViewById<Button>(R.id.btnSelect).setOnClickListener {
             onItemClick?.invoke(event)
@@ -46,6 +48,7 @@ class EventAdapter(private val eventList: ArrayList<event>) : RecyclerView.Adapt
     public class EventViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgevent = itemView.findViewById<ImageView>(R.id.imgEvent)
         var tvEvent = itemView.findViewById<TextView>(R.id.tvEvent)
+        var tvDuration = itemView.findViewById<TextView>(R.id.tvDuration)
 
 
 

@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_NewFoodBank"
         android:orderInCategory="101"
-        android:title="New Food Bank"
+        android:title="@string/new_food_bank"
         app:showAsAction="never" />
 </menu>

@@ -9,6 +9,7 @@ import android.view.Menu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.taruc.foodbank.databinding.ActivityAdminBinding
@@ -20,6 +21,7 @@ class admin_activity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var foodBankList:ArrayList<foodBank>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,25 +52,13 @@ class admin_activity : AppCompatActivity() {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
             }
 
-
-        binding.toolbar2.setOnClickListener(){
-            val id = it.id
-            when(id){
-                R.id.action_NewFoodBank ->{
-                    val intent = Intent(
-                        this, AdminNewFoodBankActivity::class.java
-                    )
-                    startActivity(intent)
-                }
-            }
+        binding.btNew.setOnClickListener(){
+            Log.i("click","bt clicked")
+            val intent = Intent(this, AdminNewFoodBankActivity::class.java)
+            startActivity(intent)
         }
 
-        setSupportActionBar(binding.toolbar2)
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.admin_activity,menu)
-        return true
-    }
 }

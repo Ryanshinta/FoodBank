@@ -33,6 +33,7 @@
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_manage_donation.xml" value="0.33" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_donation.xml" value="0.22" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_event_detail.xml" value="0.14855072463768115" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_food_bank.xml" value="0.25" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_new_donation.xml" value="0.25" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/activity_user_profile.xml" value="0.12952898550724637" />
@@ -42,8 +43,10 @@
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/food_item.xml" value="0.33" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/fragment_item.xml" value="0.2" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/fragment_item_list.xml" value="0.12952898550724637" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/fragment_maps.xml" value="0.14855072463768115" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/grid_layout_user_event.xml" value="0.12952898550724637" />
         <entry key="..\:/a/FoodBank/app/src/main/res/layout/nav_header.xml" value="0.12952898550724637" />
+        <entry key="..\:/a/FoodBank/app/src/main/res/layout/user_profile.xml" value="0.14855072463768115" />
         <entry key="..\:/a/FoodBank/app/src/main/res/menu/admin_activity.xml" value="0.3037037037037037" />
         <entry key="..\:/a/FoodBank/app/src/main/res/menu/admin_activity_foodbank.xml" value="0.225" />
         <entry key="..\:/a/FoodBank/app/src/main/res/menu/nav_menu.xml" value="0.2682291666666667" />

@@ -13,33 +13,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:layout_marginLeft="16dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Donate To: "
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDonateTo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="ABC Food Bank"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,11 +31,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvFood"
+                android:id="@+id/tvFoodName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Jagung"
+                android:text="FoodName"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -72,25 +48,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status: "
+                android:text="Quantity: "
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvState"
+                android:id="@+id/tvQty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Pending"
+                android:text="10"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_dtCreated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#00FFFFFF" />
 </androidx.cardview.widget.CardView>

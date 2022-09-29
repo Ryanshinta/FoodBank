@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 
 import com.taruc.foodbank.databinding.FragmentItemBinding
+import com.taruc.foodbank.entity.food
 import com.taruc.foodbank.entity.foodBank
 
 /**
@@ -38,11 +39,12 @@ class FoodBankRecyclerViewAdapter(
         val item = values[position]
         //holder.foodBankImg.setImageResource(item.image)
 
-        holder.foodBankAdd.text = item.address
+       // holder.foodBankAdd.text = item.address
         holder.foodBankTitle.text = item.name
         holder.foodBankSelect.setOnClickListener {
             Log.i("Button","click button"+item.name)
             val intent = Intent(holder.itemView.context, admin_Activity_FoodBank::class.java)
+            intent.putExtra("foodBankName",item.name)
             holder.itemView.context.startActivity(intent)
         }
 
@@ -56,14 +58,14 @@ class FoodBankRecyclerViewAdapter(
 
         val foodBankImg:ImageView
         val foodBankTitle:TextView
-        val foodBankAdd:TextView
+        //val foodBankAdd:TextView
         val foodBankSelect:Button
 
         init {
 
             foodBankImg  = itemView.findViewById(R.id.ivFoodBankImg)
             foodBankTitle = itemView.findViewById(R.id.tvFoodBankName)
-            foodBankAdd = itemView.findViewById(R.id.tvAdd)
+            //foodBankAdd = itemView.findViewById(R.id.tvAdd)
             foodBankSelect = itemView.findViewById(R.id.btSelect)
         }
 

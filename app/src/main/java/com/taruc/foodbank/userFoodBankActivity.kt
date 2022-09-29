@@ -14,7 +14,7 @@ import com.taruc.foodbank.databinding.ActivityUserFoodBankBinding
 
 import com.taruc.foodbank.entity.foodBank
 
-import java.util.*
+import kotlin.collections.ArrayList
 
 class userFoodBankActivity: AppCompatActivity()  {
     private lateinit var binding: ActivityUserFoodBankBinding
@@ -51,4 +51,19 @@ class userFoodBankActivity: AppCompatActivity()  {
 
 
     }
+
+//    private fun filter(text:String){
+//        val filteredList = ArrayList<foodBank>()
+//
+//        for (item in foodBankList){
+//            if (item.name.lowercase(Locale.ROOT).contains(text.lowercase())){
+//                filteredList.add(item)
+//            }
+//        }
+//        if (filteredList.isEmpty()){
+//            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
+//        }else{
+//            binding.rvFoodBank.adapter = FoodBankRecyclerViewAdapter(filteredList)
+//        }
+//    }
 }

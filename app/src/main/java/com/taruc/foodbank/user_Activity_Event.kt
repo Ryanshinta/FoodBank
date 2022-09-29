@@ -21,6 +21,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.taruc.foodbank.entity.event
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class user_Activity_Event : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -94,6 +97,9 @@ class user_Activity_Event : AppCompatActivity() {
 
     private fun setDataInList(){
 
+        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
         db = FirebaseFirestore.getInstance()
         db.collection("events").addSnapshotListener(object :EventListener<QuerySnapshot>{
 
@@ -108,8 +114,12 @@ class user_Activity_Event : AppCompatActivity() {
                 }
 
                 for(dc : DocumentChange in value?.documentChanges!!){
+
                     if(dc.type == DocumentChange.Type.ADDED){
                         eventArrayList.add((dc.document.toObject(event::class.java)))
+                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString()){
+                            eventArrayList.removeAt(eventArrayList.size - 1)
+                        }
                     }
                 }
 /*

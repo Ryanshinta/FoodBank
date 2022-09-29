@@ -28,8 +28,8 @@
         app:layout_constraintTop_toBottomOf="@+id/imgEventDetail" />
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="383dp"
+        android:layout_width="389dp"
+        android:layout_height="303dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="22dp"
         android:orientation="vertical"
@@ -116,4 +116,14 @@
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="16dp"
+        android:text="Remind Me (Google Calendar)"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

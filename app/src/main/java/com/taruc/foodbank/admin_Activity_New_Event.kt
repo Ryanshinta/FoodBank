@@ -173,7 +173,7 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
 
     }
 
-    fun setDateText (num:Int){
+    private fun setDateText (num:Int){
         val btnStartDate = findViewById<Button>(R.id.btnStartDate)
         val btnEndDate = findViewById<Button>(R.id.btnEndDate)
 

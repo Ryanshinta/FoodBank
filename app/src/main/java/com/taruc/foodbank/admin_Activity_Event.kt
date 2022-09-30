@@ -1,10 +1,10 @@
 package com.taruc.foodbank
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
@@ -12,7 +12,6 @@ import com.google.firebase.firestore.EventListener
 import com.taruc.foodbank.entity.event
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class admin_Activity_Event : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -43,9 +42,16 @@ class admin_Activity_Event : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnAddEvent.setOnClickListener(){
+        btnAddEvent.setOnClickListener {
             val intent2 = Intent(this, admin_Activity_New_Event::class.java)
             startActivity(intent2)
+        }
+
+        eventAdapter.onItemClick = {
+            val intent3 = Intent(this, admin_Activity_Event_Detail::class.java)
+            intent3.putExtra("event", it)
+            startActivity(intent3)
+            finish()
         }
     }
 

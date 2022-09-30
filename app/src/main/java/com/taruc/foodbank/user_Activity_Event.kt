@@ -105,7 +105,8 @@ class user_Activity_Event : AppCompatActivity() {
 
                     if(dc.type == DocumentChange.Type.ADDED){
                         eventArrayList.add((dc.document.toObject(event::class.java)))
-                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString()){
+                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString() ||
+                            eventArrayList.get(eventArrayList.size - 1).status == "Inactive"){
                             eventArrayList.removeAt(eventArrayList.size - 1)
                         }
                     }

@@ -83,6 +83,7 @@ class admin_Activity_Event : AppCompatActivity() {
 /*
                 tempArrayList.addAll(eventArrayList)
 */
+                eventArrayList.sortBy { it.status }
                 eventAdapter.notifyDataSetChanged()
             }
         })

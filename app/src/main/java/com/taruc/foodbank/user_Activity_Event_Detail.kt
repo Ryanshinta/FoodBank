@@ -1,11 +1,13 @@
 package com.taruc.foodbank
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.CalendarContract
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +17,9 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.storage.FirebaseStorage
 import com.taruc.foodbank.entity.event
+import java.io.File
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Period
@@ -44,9 +48,8 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             val tfAddress = findViewById<TextView>(R.id.tfAddress)
             val btnCalendar = findViewById<Button>(R.id.btnCalendar)
             val btnVolunteer = findViewById<Button>(R.id.btnVolunteer)
-/*
-            val imgEvent = findViewById<ImageView>()
-*/
+
+            val imgEvent = findViewById<ImageView>(R.id.imgEventDetail)
             lat = event.latitude!!.toDouble()
             lng = event.longtitude!!.toDouble()
             tvEventName.text = event.name
@@ -54,6 +57,20 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             tfDateStart.text = event.dateStart.toString()
             tfDateEnd.text = event.dateEnd.toString()
             tfAddress.text = event.address
+
+
+            var imgName = event.image.toString()
+            val storageRef = FirebaseStorage.getInstance().reference.child("eventImg/$imgName")
+            val localfile = File.createTempFile("tempImage", "png")
+
+            storageRef.getFile(localfile).addOnSuccessListener {
+
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                imgEvent.setImageBitmap(bitmap)
+            }
+
+
+
 
             map = findViewById<MapView>(R.id.gMap)
 

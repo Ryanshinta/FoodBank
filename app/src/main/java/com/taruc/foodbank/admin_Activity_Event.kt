@@ -44,8 +44,8 @@ class admin_Activity_Event : AppCompatActivity() {
         }
 
         btnAddEvent.setOnClickListener(){
-            val intent = Intent(this, admin_Activity_New_Event::class.java)
-            startActivity(intent)
+            val intent2 = Intent(this, admin_Activity_New_Event::class.java)
+            startActivity(intent2)
         }
     }
 

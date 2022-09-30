@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     val intent = Intent(
-                                        this, UserApplicationActivity::class.java
+                                        this, AdminApplicationActivity::class.java
                                     )
                                     startActivity(intent)
                                 }

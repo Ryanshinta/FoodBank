@@ -43,6 +43,7 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             val tfDateEnd = findViewById<TextView>(R.id.tfDateEnd)
             val tfAddress = findViewById<TextView>(R.id.tfAddress)
             val btnCalendar = findViewById<Button>(R.id.btnCalendar)
+            val btnVolunteer = findViewById<Button>(R.id.btnVolunteer)
 /*
             val imgEvent = findViewById<ImageView>()
 */
@@ -54,7 +55,7 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             tfDateEnd.text = event.dateEnd.toString()
             tfAddress.text = event.address
 
-            map = findViewById<MapView>(R.id.gMap)
+            //map = findViewById<MapView>(R.id.gMap)
 
             map.getMapAsync(this)
             map.onCreate(savedInstanceState)
@@ -63,10 +64,12 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
 
             btnCalendar.setOnClickListener(){
                 addCalendar(event)
-
-
             }
 
+            btnVolunteer.setOnClickListener(){
+                val intent = Intent(this@user_Activity_Event_Detail, VolunteerActivity::class.java)
+                startActivity(intent)
+            }
 
 
 /*

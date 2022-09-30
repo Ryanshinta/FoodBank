@@ -47,6 +47,14 @@ class AdminDonationDetailsActivity : AppCompatActivity() {
 
         completeButton.setOnClickListener{
             db.collection("donations").document(created.toString()).update("status", "Completed")
+            val foodbankDB = db.collection("foodbanks")
+            foodbankDB.whereEqualTo("name", foodbank.text).get().addOnSuccessListener {
+                for (document in it.documents){
+                    val fbId = document.id
+                    val map = mapOf("foods.${fooditem.text}" to quantity.text.toString().toInt())
+                    db.collection("foodbanks").document(fbId).update(map)
+                }
+            }
             status.text = "Completed"
         }
 

@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun registerNewUser() {
 
-        var email: String = binding.etEmail.text.toString()
+        var email: String = binding.etEmail.text.toString().lowercase()
         var name:String = binding.etName.text.toString()
         var password: String = binding.EtPassword.text.toString()
         var RepeatPassword: String = binding.password2.text.toString()

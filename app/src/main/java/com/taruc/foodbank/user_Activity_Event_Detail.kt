@@ -84,16 +84,16 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-        val date2 = event.dateStart
-        val formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss", Locale.KOREA)
+        val date2 = event.dateStart.toString()
+        val formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
         val localDate2: LocalDateTime = LocalDateTime.parse(date2, formatter2)
 /*
         localDate2.minus(Duration.ofHours(8))
 */
         val timeInMilliseconds2: Long = localDate2.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
-        val date = event.dateEnd
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss", Locale.ENGLISH)
+        val date = event.dateEnd.toString()
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
         val localDate: LocalDateTime = LocalDateTime.parse(date, formatter)
 /*
         localDate.minus(Duration.ofHours(8))
@@ -101,15 +101,15 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
         val timeInMilliseconds: Long = localDate.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
 
-        val intent = Intent(Intent.ACTION_INSERT).apply {
+        val intent2 = Intent(Intent.ACTION_INSERT).apply {
             data = CalendarContract.Events.CONTENT_URI
             putExtra(CalendarContract.Events.TITLE, event.name)
             putExtra(CalendarContract.Events.EVENT_LOCATION, event?.address.toString())
             putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, timeInMilliseconds2)
             putExtra(CalendarContract.EXTRA_EVENT_END_TIME, timeInMilliseconds)
         }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+        if (intent2.resolveActivity(packageManager) != null) {
+            startActivity(intent2)
         }
     }
 

@@ -38,8 +38,8 @@ class UserDonationDetailsActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
 
         cancelButton.setOnClickListener{
-            db.collection("donations").document(created.toString()).update("status", "Failed")
-            status.text = "Failed"
+            db.collection("donations").document(created.toString()).update("status", "Canceled")
+            status.text = "Canceled"
         }
 
         backButton.setOnClickListener{

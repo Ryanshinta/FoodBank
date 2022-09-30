@@ -20,6 +20,16 @@
         android:theme="@style/Theme.FoodBank"
         tools:targetApi="31">
         <activity
+            android:name=".FilterApplicationActivity"
+            android:label="Filtered Applications"
+            android:exported="false"
+            android:parentActivityName=".AdminApplicationActivity"/>
+        <activity
+            android:name=".FilterDonationActivity"
+            android:exported="false"
+            android:label="Filtered Donations"
+            android:parentActivityName=".AdminDonationActivity" />
+        <activity
             android:name=".SendEmailApplicationActivity"
             android:exported="false" />
         <activity

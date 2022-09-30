@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.taruc.foodbank.entity.Application
-import com.taruc.foodbank.entity.Donation
 
 class AdminApplicationActivity : AppCompatActivity() {
+    lateinit var statusType:ArrayList<String>
     private lateinit var db:FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
     private lateinit var applicationList:ArrayList<Application>
@@ -24,6 +24,7 @@ class AdminApplicationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_application)
 
+        statusType = arrayListOf()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val window = this.window
@@ -38,6 +39,14 @@ class AdminApplicationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val spinner: Spinner = findViewById<Spinner>(R.id.sp_statusType)
+        var applicationStatus = findViewById<Spinner>(R.id.sp_statusType)
+        statusType = arrayListOf("--Select a Type--", "Pending", "Approved", "Rejected", "Canceled")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, statusType)
+        spinner.adapter = adapter
+        spinner.setSelection(0)
+        val statusValue = applicationStatus.selectedItem.toString()
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -50,20 +59,31 @@ class AdminApplicationActivity : AppCompatActivity() {
 
 //        val donationRef = db.collection("donations")
 //        val query = donationRef.whereEqualTo("donorEmial", donorEmail)
-        db.collection("applications").get().addOnSuccessListener {
-            if (!it.isEmpty) {
-                for (data in it.documents) {
-                    val application: Application? = data.toObject(Application::class.java)
-                    if (application != null) {
-                        applicationList.add(application)
+
+        if (statusValue == "--Select a Type--") {
+            db.collection("applications").get().addOnSuccessListener {
+                if (!it.isEmpty) {
+                    for (data in it.documents) {
+                        val application: Application? = data.toObject(Application::class.java)
+                        if (application != null) {
+                            applicationList.add(application)
+                        }
                     }
+                    recyclerView.adapter = ApplicationAdapter(applicationList)
                 }
-                recyclerView.adapter = ApplicationAdapter(applicationList)
+                totalApplication.text =
+                    "You received ${applicationList.size.toString()} application this year."
             }
-            totalApplication.text = "You received ${applicationList.size.toString()} application this year."
+                .addOnFailureListener {
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                }
         }
-            .addOnFailureListener {
-                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-            }
+        val filterButton = findViewById<Button>(R.id.btn_filter)
+
+        filterButton.setOnClickListener {
+            val intent = Intent(this, FilterApplicationActivity::class.java)
+                .putExtra("statusValue", applicationStatus.selectedItem.toString())
+            startActivity(intent)
+        }
     }
 }

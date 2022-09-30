@@ -11,18 +11,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.taruc.foodbank.entity.Donation
+import com.taruc.foodbank.entity.Application
 
-class AdminDonationActivity : AppCompatActivity() {
+class FilterApplicationActivity : AppCompatActivity() {
     lateinit var statusType:ArrayList<String>
     private lateinit var db:FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
-    private lateinit var donationList:ArrayList<Donation>
-    private lateinit var donationAdapter:DonationAdapter
+    private lateinit var applicationList:ArrayList<Application>
+    private lateinit var donationAdapter:ApplicationAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_donation)
+        setContentView(R.layout.activity_admin_application)
+
+        val status = intent.getStringExtra("statusValue")
+        var filterStatus = ""
+
+        if (status.toString() == "Pending"){
+            filterStatus = "Pending"
+        }else if (status.toString() == "Approved"){
+            filterStatus = "Approved"
+        }else if (status.toString() == "Rejected"){
+            filterStatus = "Rejected"
+        }else if (status.toString() == "Canceled"){
+            filterStatus = "Canceled"
+        }
 
         statusType = arrayListOf()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -33,45 +46,46 @@ class AdminDonationActivity : AppCompatActivity() {
         window.statusBarColor = this.resources.getColor(R.color.admin)
 
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#3640FF")))
-        val button = findViewById<Button>(R.id.btn_addDonation)
+        val button = findViewById<Button>(R.id.btn_back)
         button.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         val spinner: Spinner = findViewById<Spinner>(R.id.sp_statusType)
-        var donationStatus = findViewById<Spinner>(R.id.sp_statusType)
-        statusType = arrayListOf("--Select a Type--", "Pending", "Failed", "Canceled", "Completed")
+        var applicationStatus = findViewById<Spinner>(R.id.sp_statusType)
+        statusType = arrayListOf("--Select a Type--", "Pending", "Approved", "Rejected", "Canceled")
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, statusType)
         spinner.adapter = adapter
         spinner.setSelection(0)
-        val statusValue = donationStatus.selectedItem.toString()
+        val statusValue = applicationStatus.selectedItem.toString()
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        donationList = arrayListOf()
+        applicationList = arrayListOf()
         db = FirebaseFirestore.getInstance()
-        val totalDonation = findViewById<TextView>(R.id.tvDescription)
+        val totalApplication = findViewById<TextView>(R.id.tvDescription)
         //get current user email
         val auth = FirebaseAuth.getInstance()
 
 //        val donationRef = db.collection("donations")
 //        val query = donationRef.whereEqualTo("donorEmial", donorEmail)
 
-        if (statusValue == "--Select a Type--"){
-            db.collection("donations").get().addOnSuccessListener {
+        if (statusValue == "--Select a Type--") {
+            db.collection("applications").whereEqualTo("applicationStatus", filterStatus).get().addOnSuccessListener {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
-                        val donation: Donation? = data.toObject(Donation::class.java)
-                        if (donation != null) {
-                            donationList.add(donation)
+                        val application: Application? = data.toObject(Application::class.java)
+                        if (application != null) {
+                            applicationList.add(application)
                         }
                     }
-                    recyclerView.adapter = DonationAdapter(donationList)
+                    recyclerView.adapter = ApplicationAdapter(applicationList)
                 }
-                totalDonation.text = "You have ${donationList.size.toString()} donation this year."
+                totalApplication.text =
+                    "There are ${applicationList.size.toString()} $status Application."
             }
                 .addOnFailureListener {
                     Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
@@ -80,9 +94,9 @@ class AdminDonationActivity : AppCompatActivity() {
         val filterButton = findViewById<Button>(R.id.btn_filter)
 
         filterButton.setOnClickListener {
-                val intent = Intent(this, FilterDonationActivity::class.java)
-                    .putExtra("statusValue", donationStatus.selectedItem.toString())
-                startActivity(intent)
+            val intent = Intent(this, FilterApplicationActivity::class.java)
+                .putExtra("statusValue", applicationStatus.selectedItem.toString())
+            startActivity(intent)
         }
     }
 }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnStartTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".admin_Activity_New_Event">
@@ -42,54 +43,143 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="48dp"
         android:text="Name"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="302dp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <EditText
+        android:id="@+id/tfEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Name"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
         android:text="Description"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="358dp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/tvdateStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:text="Start Date"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/tfEventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="@+id/tfEventName"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:text="Address"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="416dp" />
+        android:layout_marginTop="43dp"
+        android:text="End Date"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvdateStart"
+        app:layout_constraintTop_toBottomOf="@+id/tvdateStart" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <TextView
+        android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="179dp"
-        tools:layout_editor_absoluteY="282dp" />
+        android:layout_marginTop="54dp"
+        android:text="Image"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
+    <Button
+        android:id="@+id/btnStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="347dp" />
+        android:layout_marginTop="-10dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="@+id/tfEventDescription"
+        app:layout_constraintTop_toTopOf="@+id/tvdateStart" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:text="Time"
+        app:layout_constraintStart_toEndOf="@+id/btnStartDate"
+        app:layout_constraintTop_toTopOf="@+id/btnStartDate" />
+
+    <Button
+        android:id="@+id/btnEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="@+id/btnStartDate"
+        app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+    <Button
+        android:id="@+id/btnEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:text="Time"
+        app:layout_constraintStart_toEndOf="@+id/btnEndDate"
+        app:layout_constraintTop_toTopOf="@+id/btnEndDate" />
+
+    <EditText
+        android:id="@+id/tfEventAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="183dp"
-        tools:layout_editor_absoluteY="420dp" />
+        android:hint="Enter Address"
+        android:inputType="textPostalAddress"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="@+id/btnEndDate"
+        app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+    <Button
+        android:id="@+id/btnEventImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:text="Upload"
+        app:layout_constraintStart_toStartOf="@+id/tfEventAddress"
+        app:layout_constraintTop_toTopOf="@+id/textView19" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

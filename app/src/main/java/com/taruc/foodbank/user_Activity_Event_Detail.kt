@@ -55,7 +55,7 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             tfDateEnd.text = event.dateEnd.toString()
             tfAddress.text = event.address
 
-            //map = findViewById<MapView>(R.id.gMap)
+            map = findViewById<MapView>(R.id.gMap)
 
             map.getMapAsync(this)
             map.onCreate(savedInstanceState)

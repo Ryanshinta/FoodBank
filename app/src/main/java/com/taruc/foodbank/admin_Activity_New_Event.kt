@@ -11,7 +11,11 @@ import android.os.Bundle
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
@@ -24,6 +28,7 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
     var startNum:String = ""
     var endNum:String = ""
     var num = 0
+    var arrayLocation = DoubleArray(2) { 0.0 }
 
     var selectedDay = ""
     var selectedMonth = ""
@@ -31,13 +36,14 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
     var selectedHour = ""
     var selectedMinute = ""
     private lateinit var imgUri: Uri
+    private lateinit var ref: StorageReference
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_new_event)
 
-
+        ref = FirebaseStorage.getInstance().reference
         val btnStartDate = findViewById<Button>(R.id.btnStartDate)
         val btnEndDate = findViewById<Button>(R.id.btnEndDate)
         val btnUploadImage = findViewById<Button>(R.id.btnEventImage)
@@ -46,6 +52,9 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
         val tfEventName = findViewById<TextView>(R.id.tfEventName)
         val tfEventDesciption = findViewById<TextView>(R.id.tfEventDescription)
         val imgEvent = findViewById<ImageView>(R.id.imgNewEvent)
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+        val currentDate = sdf.format(Date())
 
 
 
@@ -72,6 +81,8 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
         }
 
         btnAddNewEvent.setOnClickListener(){
+
+            //validate Empty
             if(tfEventName.text.trim().isEmpty()) {
                 Toast.makeText(applicationContext, "Please Enter Event Name", Toast.LENGTH_SHORT).show()
             }else if(tfEventDesciption.text.trim().isEmpty()){
@@ -85,21 +96,53 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
             else if(tfAddress.text.trim().isEmpty()){
 
                 Toast.makeText(applicationContext, "Please Enter Event Address", Toast.LENGTH_SHORT).show()
-                /*var arrayLocation: DoubleArray =getLocationFromAddress(tfAddress.text.toString())
-                if(arrayLocation[0] == 0.0){
-                    Toast.makeText(applicationContext, "Please Enter Valid Address", Toast.LENGTH_SHORT).show()
-                }*/
+
+
             }
             else if(imgEvent.drawable == null){
-                Toast.makeText(applicationContext, "Please Enter Event Image", Toast.LENGTH_SHORT).show()
-            }else{
 
+                Toast.makeText(applicationContext, "Please Enter Event Image", Toast.LENGTH_SHORT).show()
+
+            }else {
+                getLocationFromAddress(tfAddress.text.toString())
+
+                //validate data validity
+                if(btnStartDate.text.toString() > btnEndDate.text.toString()){
+                    Toast.makeText(applicationContext, "Start Date must be earlier than End Date", Toast.LENGTH_SHORT).show()
+                }else if(arrayLocation[0] == 0.0){
+                    Toast.makeText(applicationContext, "Address Cannot Recognized", Toast.LENGTH_SHORT).show()
+                }else{
+                    //add to firestore
+                    val imgName = ref.child("eventImg/$currentDate.png")
+                    imgName.putFile(imgUri)
+                    val db = FirebaseFirestore.getInstance()
+                    val event = hashMapOf(
+                        "address" to tfAddress.text.trim().toString(),
+                        "dateEnd" to btnEndDate.text.toString(),
+                        "dateStart" to btnStartDate.text.toString(),
+                        "description" to tfEventDesciption.text.trim().toString(),
+                        "image" to "$currentDate.png",
+                        "createdDate" to currentDate.toString(),
+                        "latitude" to arrayLocation[0].toDouble(),
+                        "longtitude" to arrayLocation[1].toDouble(),
+                        "name" to tfEventName.text.trim().toString(),
+                        "status" to "Active"
+                    )
+
+                    db.collection("events")
+                        .document(currentDate.toString()).set(event)
+                        .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()
+                        finish()
+                        }
+                        .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
+                }
             }
 
         }
 
 
     }
+
 
     private val getImage = registerForActivityResult(
         ActivityResultContracts.GetContent()){ uri ->
@@ -111,22 +154,23 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
         imgNewEvent.setImageURI(uri)
     }
 
-    private fun getLocationFromAddress(strAddress: String?): DoubleArray{
+    private fun getLocationFromAddress(strAddress: String?){
         val coder = Geocoder(this)
         var address: List<Address>?
         val btnAddNewEvent = findViewById<Button>(R.id.btnAddNewEvent)
-        var arrayLocation = DoubleArray(2) { 0.0 }
+        arrayLocation[0] = 0.0
+        arrayLocation[1] = 0.0
+
 
             address = coder.getFromLocationName(strAddress, 5)
             if (address.isNotEmpty()) {
-                btnAddNewEvent.text = "knnb"
+
 
                 val location = address[0]
                 arrayLocation[0] = location.latitude.toDouble()
                 arrayLocation[1] = location.longitude.toDouble()
             }
 
-        return arrayLocation
     }
 
     fun setDateText (num:Int){
@@ -182,7 +226,7 @@ class admin_Activity_New_Event : AppCompatActivity() , DatePickerDialog.OnDateSe
             selectedMinute = "0$selectedMinute"
         }
 
-        datetime = "$selectedDay-$selectedMonth-$selectedYear  $selectedHour:$selectedMinute:00"
+        datetime = "$selectedDay-$selectedMonth-$selectedYear $selectedHour:$selectedMinute:00"
         setDateText(num)
 
     }

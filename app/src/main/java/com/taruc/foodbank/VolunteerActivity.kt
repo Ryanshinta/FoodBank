@@ -1,7 +1,9 @@
 package com.taruc.foodbank
 
+import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,19 +29,21 @@ class VolunteerActivity : AppCompatActivity() {
             val Volage = age.text.toString()
             val Volcontact = contact.text.toString()
             val VolEmail = Useremail
+            val db = FirebaseFirestore.getInstance()
 
 
             saveVolunteer(Volname, Volage, Volcontact, VolEmail )
 
-            if (name != name) {
+            if (name != null) {
                 Toast.makeText(applicationContext, "Please enter your name!", Toast.LENGTH_LONG).show()
             }
-            if (age != age) {
+            if (age != null) {
                 Toast.makeText(applicationContext, "Please enter your age!", Toast.LENGTH_LONG).show()
             }
-            if (contact != contact) {
+            if (contact != null) {
                 Toast.makeText(applicationContext, "Please enter your Phone number!", Toast.LENGTH_LONG).show()
             }
+
         }
 
     }

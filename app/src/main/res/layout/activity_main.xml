@@ -8,40 +8,67 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".MainActivity">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
-
-
-    <android.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="280dp"
-        android:layout_height="42dp"
-        android:background="@color/white"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Food Bank"
-        tools:ignore="MissingConstraints">
-
-    </android.widget.SearchView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFoodBank"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-<com.google.android.material.navigation.NavigationView
-    android:id="@+id/nav_view"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    app:headerLayout="@layout/nav_header"
-    app:menu="@menu/nav_menu"
-    android:layout_gravity="start"
-    android:fitsSystemWindows="true"/>
 
+            <android.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="280dp"
+                android:layout_height="42dp"
+                android:background="@color/white"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Food Bank"
+                tools:ignore="MissingConstraints">
+
+            </android.widget.SearchView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFoodBank"
+                android:layout_width="match_parent"
+                android:layout_height="445dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btNewBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="47dp"
+                    android:text="+"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_menu" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

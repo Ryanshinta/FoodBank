@@ -59,6 +59,32 @@ class admin_activity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.srLayout.setOnRefreshListener {
+            binding.srLayout.isRefreshing = false
+            reloadData()
+        }
+    }
+
+    private fun reloadData() {
+        db = FirebaseFirestore.getInstance()
+        foodBankList = arrayListOf()
+
+        db.collection("foodbanks").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty){
+                    for (data in it.documents){
+                        Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
+                        val foodBankObj = data.toObject<foodBank>()
+                        if (foodBankObj != null){
+                            foodBankList.add(foodBankObj)
+                        }
+                    }
+                    binding.rvFoodBank.adapter = FoodBankRecyclerViewAdapter(foodBankList)
+                }
+            }
+            .addOnFailureListener{
+                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
 
     }
 

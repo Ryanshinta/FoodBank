@@ -77,7 +77,7 @@ class DonationAdapter (private val donationList: ArrayList<Donation>): RecyclerV
 //        val pickupAddress:
 //        val pickupDateTime:
         val status: TextView = itemView.findViewById(R.id.tvStatus)
-        val food: TextView = itemView.findViewById(R.id.tvFood)
+        val food: TextView = itemView.findViewById(R.id.lvFood)
         val card:CardView = itemView.findViewById(R.id.card)
         val created:TextView = itemView.findViewById(R.id.tv_dtCreated)
     }

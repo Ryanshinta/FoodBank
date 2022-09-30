@@ -1,6 +1,7 @@
 package com.taruc.foodbank
 
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -59,13 +60,15 @@ class FoodBankRecyclerViewAdapter(
             val intent = Intent(holder.itemView.context, admin_Activity_FoodBank::class.java)
             intent.putExtra("foodBankName",item.name)
             holder.itemView.context.startActivity(intent)
+
         }
         holder.btDelete.setOnClickListener{
             Log.i("Delete","click button"+item.name)
 
-            val intent = Intent(holder.itemView.context, admin_Activity_FoodBank::class.java)
+            val intent = Intent(holder.itemView.context, admin_Activity_Delete::class.java)
             intent.putExtra("foodBankName",item.name)
             holder.itemView.context.startActivity(intent)
+
         }
 
 

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,8 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.taruc.foodbank.databinding.ActivityMainBinding
-import com.taruc.foodbank.databinding.ActivityUserFoodBankBinding
 import com.taruc.foodbank.entity.foodBank
 import com.taruc.foodbank.entity.role
 import com.taruc.foodbank.entity.user
@@ -50,6 +50,12 @@ class MainActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         foodBankList = arrayListOf()
+
+        val srLayout = findViewById<SwipeRefreshLayout>(R.id.srLayout)
+        srLayout.setOnRefreshListener {
+            srLayout.isRefreshing = false
+            reloadData()
+        }
 
         db.collection("foodbanks").get()
             .addOnSuccessListener {
@@ -97,9 +103,14 @@ class MainActivity : AppCompatActivity() {
                     userObj = it.toObject(com.taruc.foodbank.entity.user::class.java)!!
 
                     if (userObj.role == role.ADMIN){
-                        val intent = Intent(
-                            this, admin_activity::class.java
-                        )
+                        val btNew = findViewById<Button>(R.id.btNewBank)
+                        btNew.visibility = android.view.View.VISIBLE
+
+                        btNew.setOnClickListener{
+                            Log.i("click","bt clicked")
+                            val intent = Intent(this, AdminNewFoodBankActivity::class.java)
+                            startActivity(intent)
+                        }
                         startActivity(intent)
                         navView.setNavigationItemSelectedListener {
                             val id = it.itemId
@@ -178,7 +189,6 @@ class MainActivity : AppCompatActivity() {
                                     ).show()
                                     auth.signOut()
                                     finish()
-                                    startActivity(intent)
 
                                 }
                                 R.id.nav_share -> {
@@ -353,6 +363,28 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun reloadData() {
+        foodBankList = arrayListOf()
+        foodBankList.clear()
+        val foodBankRe = findViewById<RecyclerView>(R.id.rvFoodBank)
+        db.collection("foodbanks").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty){
+                    for (data in it.documents){
+                        Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
+                        val foodBankObj = data.toObject<foodBank>()
+                        if (foodBankObj != null){
+                            foodBankList.add(foodBankObj)
+                        }
+                    }
+                    foodBankRe.adapter = FoodBankRecyclerViewAdapter(foodBankList)
+                }
+            }
+            .addOnFailureListener{
+                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

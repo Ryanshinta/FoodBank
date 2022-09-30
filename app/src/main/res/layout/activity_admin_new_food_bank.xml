@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:hint="Name"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,8 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Address" />
+            android:hint="Address"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,8 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Desciption" />
+            android:hint="Desciption"
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -114,8 +114,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName|text|phone"
-            android:text="Contact" />
+            android:hint="Contact"
+            android:inputType="textPersonName|text|phone" />
     </LinearLayout>
 
     <CheckBox
@@ -136,8 +136,8 @@
                     android:layout_width="252dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="Name"
+                    android:inputType="textPersonName" />
 
                 <Button
                     android:id="@+id/btFoodAdd"

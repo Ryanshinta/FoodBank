@@ -19,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodBank"
         tools:targetApi="31">
-        <activity android:name=".admin_Activity_Delete"/>
+        <activity
+            android:name=".admin_Activity_Delete"
+            android:parentActivityName=".admin_activity"
+            android:exported="false"/>
         <activity
             android:name=".AdminApplicationActivity"
             android:label="Admin Applications"
@@ -59,17 +62,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
 
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC1F1goMo7npkrkgf9YdfSFNpXMpsJb1s8" />

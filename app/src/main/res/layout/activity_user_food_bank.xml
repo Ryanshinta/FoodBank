@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar5"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="match_parent">
 
-    <android.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="280dp"
-        android:layout_height="42dp"
-        android:background="@color/white"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search Food Bank"
-        tools:ignore="MissingConstraints">
-
-    </android.widget.SearchView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFoodBank"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
 
-</LinearLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" />
+
+            <android.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Food Bank"
+                tools:ignore="MissingConstraints">
+
+            </android.widget.SearchView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFoodBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

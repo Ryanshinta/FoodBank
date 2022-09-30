@@ -101,7 +101,7 @@ class AdminNewFoodBankActivity : AppCompatActivity(),
                 )
             }
             var foodBankDb = hashMapOf(
-                "address" to etName.text.toString(),
+                "address" to etAddress.text.toString(),
                 "contactNumber" to etContact.text.toString(),
                 "description" to etDesc.text.toString(),
                 "foods" to foods,
@@ -118,7 +118,7 @@ class AdminNewFoodBankActivity : AppCompatActivity(),
                 .addOnFailureListener {
                     Log.e("FoodBank Create", it.toString())
                 }
-
+            finish()
         }
 
 

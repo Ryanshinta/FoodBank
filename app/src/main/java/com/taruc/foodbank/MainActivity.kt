@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -160,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         val intent = Intent(
-                                            this, VolunteerActivity::class.java
+                                            this, UserVolunteering::class.java
                                         )
                                         startActivity(intent)
                                     }
@@ -284,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         val intent = Intent(
-                                            this, VolunteerActivity::class.java
+                                            this, UserVolunteering::class.java
                                         )
                                         startActivity(intent)
                                     }

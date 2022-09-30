@@ -137,6 +137,9 @@
             android:name=".VolunteerActivity"
             android:exported="false" />
         <activity
+            android:name=".UserVolunteering"
+            android:exported="false" />
+        <activity
             android:name=".forgotPasswordActivity"
             android:exported="false" />
         <activity

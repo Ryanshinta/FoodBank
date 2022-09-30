@@ -42,7 +42,14 @@ class AdminApplicationDetailsActivity : AppCompatActivity() {
         val backButton = findViewById<Button>(R.id.btn_back)
         val rejectButton = findViewById<Button>(R.id.btn_rejected)
         val approveButton = findViewById<Button>(R.id.btn_approved)
+        val emailButton = findViewById<Button>(R.id.btn_email)
         val db = FirebaseFirestore.getInstance()
+
+        emailButton.setOnClickListener{
+            val intent = Intent(this, SendEmailApplicationActivity::class.java)
+                .putExtra("email",applyEmail.text.toString())
+            startActivity(intent)
+        }
 
         rejectButton.setOnClickListener{
             db.collection("applications").document(created.toString()).update("applicationStatus", "Rejected")

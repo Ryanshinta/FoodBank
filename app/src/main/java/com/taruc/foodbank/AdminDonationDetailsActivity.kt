@@ -45,6 +45,14 @@ class AdminDonationDetailsActivity : AppCompatActivity() {
         val completeButton = findViewById<Button>(R.id.btn_completeDonation)
         val db = FirebaseFirestore.getInstance()
 
+        val emailButton = findViewById<Button>(R.id.btn_email)
+
+        emailButton.setOnClickListener{
+            val intent = Intent(this, SendEmailDonationActivity::class.java)
+                .putExtra("email",email.text.toString())
+            startActivity(intent)
+        }
+
         completeButton.setOnClickListener{
             db.collection("donations").document(created.toString()).update("status", "Completed")
             val foodbankDB = db.collection("foodbanks")

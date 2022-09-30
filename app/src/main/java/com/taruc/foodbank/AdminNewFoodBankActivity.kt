@@ -67,7 +67,6 @@ class AdminNewFoodBankActivity : AppCompatActivity(),
         var foodList = ArrayList<String>()
         llFoodInit.visibility = android.view.View.GONE
 
-        db
 
 
 

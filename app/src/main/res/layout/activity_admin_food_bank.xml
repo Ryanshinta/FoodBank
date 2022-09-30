@@ -31,10 +31,19 @@
                     android:layout_height="64dp"
                     android:src="@drawable/logo" />
 
-                <com.google.android.gms.maps.MapView
-                    android:id="@+id/mapView"
+
+                <FrameLayout
+                    android:id="@+id/layout"
                     android:layout_width="match_parent"
-                    android:layout_height="182dp" />
+                    android:layout_height="273dp">
+
+                    <fragment
+                        android:id="@+id/map"
+                        class="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+
 
                 <TextView
                     android:id="@+id/tvFoodBankName"

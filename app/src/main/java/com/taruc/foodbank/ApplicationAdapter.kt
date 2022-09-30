@@ -55,12 +55,12 @@ class ApplicationAdapter (private val applicationList: ArrayList<Application>): 
             val context = holder.itemView.context
             if(userRole == "USER"){
                 val intent = Intent(context, UserApplicationDetailsActivity ::class.java)
-                intent.putExtra("dateTimeCreated",applicationList[position].dateTimeApplied)
+                intent.putExtra("dateTimeApplied",applicationList[position].dateTimeApplied)
                 context.startActivity(intent)
             }
             if(userRole == "ADMIN"){
                 val intent = Intent(context, AdminApplicationDetailsActivity ::class.java)
-                intent.putExtra("dateTimeCreated",applicationList[position].dateTimeApplied)
+                intent.putExtra("dateTimeApplied",applicationList[position].dateTimeApplied)
                 context.startActivity(intent)
             }
         }

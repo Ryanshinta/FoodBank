@@ -11,8 +11,8 @@
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/drawable/ic_menu_camera.xml" value="0.358" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/drawable/side_nav_bar.xml" value="0.358" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin.xml" value="0.3567708333333333" />
-        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_application.xml" value="0.1" />
-        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_application_details.xml" value="0.1" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_application.xml" value="0.264" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_application_details.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_donation.xml" value="0.16458333333333333" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_admin_donation_details.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_donation_details.xml" value="0.121875" />
@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_manage_application.xml" value="0.1921875" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_manage_donation.xml" value="0.1921875" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_application.xml" value="0.176" />
+        <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_application_details.xml" value="0.1" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_donation.xml" value="0.264" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_donation2.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/Asus/Desktop/FoodBank/app/src/main/res/layout/activity_user_event_detail.xml" value="0.121875" />

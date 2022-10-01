@@ -12,7 +12,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.taruc.foodbank.entity.event
+import java.io.File
 
 class EventAdapter(private val eventList: ArrayList<event>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
@@ -33,8 +36,16 @@ class EventAdapter(private val eventList: ArrayList<event>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         var event: event = eventList[position]
 
+        var imgName = event.image.toString()
+        val storageRef = FirebaseStorage.getInstance().reference.child("eventImg/$imgName")
+        val localfile = File.createTempFile("tempImage", "png")
 
-//        holder.imgevent.setImageResource(event.image)
+        storageRef.getFile(localfile).addOnSuccessListener {
+
+            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            holder.imgevent.setImageBitmap(bitmap)
+        }
+
         holder.tvEvent.text=event.name
         holder.tvDuration.text = "Start From : "+event.dateStart
 

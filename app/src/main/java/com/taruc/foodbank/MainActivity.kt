@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -31,8 +33,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
     //private lateinit var userObj:user
-    private lateinit var foodBankList:ArrayList<foodBank>
+    private lateinit var foodBankList: ArrayList<foodBank>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,6 +44,17 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val foodBankRe = findViewById<RecyclerView>(R.id.rvFoodBank)
+        val srLayout = findViewById<SwipeRefreshLayout>(R.id.srLayout)
+        val btNewBank = findViewById<Button>(R.id.btNewBank)
+
+        btNewBank.setOnClickListener {
+            val intent = Intent(this, AdminNewFoodBankActivity::class.java)
+            startActivity(intent)
+        }
+        srLayout.setOnRefreshListener {
+            srLayout.isRefreshing = false
+            reloadData()
+        }
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -54,18 +68,18 @@ class MainActivity : AppCompatActivity() {
 
         db.collection("foodbanks").get()
             .addOnSuccessListener {
-                if (!it.isEmpty){
-                    for (data in it.documents){
-                        Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
+                if (!it.isEmpty) {
+                    for (data in it.documents) {
+                        Log.d(ContentValues.TAG, "Cached document data : ${data?.data}")
                         val foodBankObj = data.toObject<foodBank>()
-                        if (foodBankObj != null){
+                        if (foodBankObj != null) {
                             foodBankList.add(foodBankObj)
                         }
                     }
                     foodBankRe.adapter = FoodBankRecyclerViewAdapter(foodBankList)
                 }
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
             }
 
@@ -77,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if (user == null){
+        if (user == null) {
             Toast.makeText(
                 applicationContext,
                 "login first",
@@ -88,24 +102,26 @@ class MainActivity : AppCompatActivity() {
                 this, activityLogin::class.java
             )
             startActivity(intent)
-        }else{
+        } else {
             //Log.i("Login Success", user.email.toString())
 
             val userRef = db.collection("users").document(user.email.toString())
-            userRef.get().addOnFailureListener{
-                Log.e("ERROR",it.toString())
+            userRef.get().addOnFailureListener {
+                Log.e("ERROR", it.toString())
             }
-                .addOnSuccessListener { Log.i("ERROR",it.toString())
-                if (it.exists()){
-                    var userObj = it.toObject<user>()!!
+                .addOnSuccessListener {
+                    Log.i("ERROR", it.toString())
+                    if (it.exists()) {
+                        var userObj = it.toObject<user>()!!
 
-                    Log.e("userObj",userObj.name+userObj.email)
+                        Log.e("userObj", userObj.name + userObj.email)
 
-                        if (userObj.role == role.ADMIN){
-                            val intent = Intent(
-                                this, admin_activity::class.java
-                            )
-                            startActivity(intent)
+                        if (userObj.role == role.ADMIN) {
+//                            val intent = Intent(
+//                                this, admin_activity::class.java
+//                            )
+                            btNewBank.visibility = android.view.View.VISIBLE
+                            //startActivity(intent)
                             navView.setNavigationItemSelectedListener {
                                 val id = it.itemId
                                 when (id) {
@@ -229,137 +245,162 @@ class MainActivity : AppCompatActivity() {
                                 }
                                 true
                             }
-                        }else{
-                            navView.setNavigationItemSelectedListener {
-                                val id = it.itemId
-                                when (id) {
-                                    R.id.nav_food_bank -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Food Bank",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, userFoodBankActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_donation -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Donation",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, UserDonationActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_application -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Application",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, UserApplicationActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_event -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Event",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, user_Activity_Event::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_volunteer -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Volunteer",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, VolunteerActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_user_profile -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked My Profile",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, UserProfileActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_logout -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Logout",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        auth.signOut()
-                                        finish()
-                                        startActivity(intent)
-
-                                    }
-                                    R.id.nav_share -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Share",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, UserDonationActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_setting -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked Setting",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, UserDonationActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    R.id.nav_about_us -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Clicked About Us",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        val intent = Intent(
-                                            this, AdminDonationActivity::class.java
-                                        )
-                                        startActivity(intent)
-                                    }
-                                    else -> {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "No available",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                                true
-                            }
                         }
 
+                        navView.setNavigationItemSelectedListener {
+                            val id = it.itemId
+                            when (id) {
+                                R.id.nav_food_bank -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Food Bank",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, userFoodBankActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_donation -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Donation",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_application -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Application",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserApplicationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_event -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Event",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, user_Activity_Event::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_volunteer -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Volunteer",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, VolunteerActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_user_profile -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked My Profile",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserProfileActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_logout -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Logout",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    auth.signOut()
+                                    finish()
+                                    startActivity(intent)
+
+                                }
+                                R.id.nav_share -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Share",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_setting -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked Setting",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, UserDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                R.id.nav_about_us -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked About Us",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, AdminDonationActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                }
+                                else -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "No available",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                            true
+                        }
+
+
+                    }
                 }
-            }
 
         }
 
+
+    }
+
+    private fun reloadData() {
+        val foodBankRe = findViewById<RecyclerView>(R.id.rvFoodBank)
+        db = FirebaseFirestore.getInstance()
+        foodBankList = arrayListOf()
+        foodBankList.clear()
+        db.collection("foodbanks").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    for (data in it.documents) {
+                        Log.d(ContentValues.TAG, "Cached document data : ${data?.data}")
+                        val foodBankObj = data.toObject<foodBank>()
+                        if (foodBankObj != null) {
+                            foodBankList.add(foodBankObj)
+                        }
+                    }
+                    foodBankRe.adapter = FoodBankRecyclerViewAdapter(foodBankList)
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
 
     }
 

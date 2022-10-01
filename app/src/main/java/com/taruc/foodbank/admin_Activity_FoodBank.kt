@@ -2,25 +2,29 @@ package com.taruc.foodbank
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.toObject
-import com.taruc.foodbank.databinding.ActivityAdminFoodBankBinding
 import com.taruc.foodbank.entity.foodBank
+import com.taruc.foodbank.entity.role
+import com.taruc.foodbank.entity.user
 
 class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
 , ActivityCompat.OnRequestPermissionsResultCallback {
@@ -28,23 +32,27 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
     private lateinit var map:GoogleMap
     private lateinit var db: FirebaseFirestore
     private var latLng: LatLng = LatLng(0.0,0.0)
+    private lateinit var auth: FirebaseAuth
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_food_bank)
-
+        auth = FirebaseAuth.getInstance()
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
 
+        val srLayout = findViewById<SwipeRefreshLayout>(R.id.srLayout)
 
-
+        srLayout.setOnRefreshListener {
+            srLayout.isRefreshing = false
+            reloadData()
+        }
+        val rvFoodList = findViewById<RecyclerView>(R.id.rvFoodList)
 
         val foodBankName: String? = intent.getStringExtra("foodBankName")
-        //binding.tvFoodBankName.text = foodBankName
-        //map = binding.mapView
         db = FirebaseFirestore.getInstance()
-        val rvFoodList = findViewById<RecyclerView>(R.id.rvFoodList)
+
         rvFoodList.layoutManager = LinearLayoutManager(this)
 
         val foodBankDB= db.collection("foodbanks")
@@ -61,9 +69,10 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
                 val tvContact = findViewById<TextView>(R.id.tvContect)
                 val tvDescri = findViewById<TextView>(R.id.tvDescri)
                 val tvAddress = findViewById<TextView>(R.id.tvAddress)
+                val ivHistory = findViewById<ImageView>(R.id.ivHistory)
 
                 tvFoodBankName.text = foodBankInstance.name
-                rvFoodList.adapter = FoodListAdapter(foodList,foodNameList)
+                rvFoodList.adapter = FoodListAdapter(foodList,foodNameList, foodBankName.toString())
                 latLng = LatLng(foodBankInstance.lat,foodBankInstance.lng)
 
                 mapFragment?.getMapAsync(this)
@@ -72,6 +81,34 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
                 tvDescri.text = foodBankInstance.description
 
                 tvAddress.text = foodBankInstance.address
+
+                tvAddress.setOnClickListener{
+                    val gmmIntentUri = Uri.parse("geo:"+foodBankInstance.lat+","+foodBankInstance.lng)
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    mapIntent.resolveActivity(packageManager)?.let {
+                        startActivity(mapIntent)
+                    }
+                }
+
+                val userRef = db.collection("users").document(auth.currentUser?.email.toString())
+                userRef.get().addOnSuccessListener {
+                    val user = it.toObject<user>()
+                    if (user != null) {
+                        if (user.role == role.ADMIN){
+                            ivHistory.setOnClickListener{
+                                val intent = Intent(
+                                    this, FoodBankHistory::class.java
+                                )
+                                intent.putExtra("FoodBankName",foodBankInstance.name)
+                                startActivity(intent)
+                            }
+                        }else{
+                            ivHistory.visibility = View.GONE
+                        }
+                    }
+                }
+
 
 
             }
@@ -85,6 +122,32 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
 
 
 
+    }
+
+    private fun reloadData() {
+        val foodBankName: String? = intent.getStringExtra("foodBankName")
+        db = FirebaseFirestore.getInstance()
+
+
+        val foodBankDB= db.collection("foodbanks")
+        foodBankDB.whereEqualTo("name",foodBankName).get().addOnSuccessListener {
+            for (document in it.documents){
+                Log.d("TAG", "${document.id} => ${document.data}")
+                val foodBankInstance = document.toObject<foodBank>()!!
+                val foodList = foodBankInstance.foods!!
+                val foodNameList = foodList.keys.toList()
+
+                val rvFoodList = findViewById<RecyclerView>(R.id.rvFoodList)
+                rvFoodList.adapter = FoodListAdapter(foodList,foodNameList, foodBankName.toString())
+
+
+
+
+            }
+        }.addOnFailureListener{
+                exception ->
+            Log.w("TAG", "Error getting documents: ", exception)
+        }
     }
 
 
@@ -108,7 +171,7 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
         var location = latLng
         map.addMarker(MarkerOptions()
             .position(location)
-            .title("I am here"))
+            .title("FoodBank here"))
        map.setMinZoomPreference(15.0f)
        map.setMaxZoomPreference(20.0f)
         map.moveCamera(CameraUpdateFactory.newLatLng(location))
@@ -177,14 +240,12 @@ class admin_Activity_FoodBank : AppCompatActivity(),OnMapReadyCallback
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         ) {
-            // Enable the my location layer if the permission has been granted.
+
             enableMyLocation()
         } else {
-            // Permission was denied. Display an error message
-            // [START_EXCLUDE]
-            // Display the missing permission error dialog when the fragments resume.
+
             permissionDenied = true
-            // [END_EXCLUDE]
+
         }
     }
 

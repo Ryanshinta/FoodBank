@@ -1,11 +1,13 @@
 package com.taruc.foodbank
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.provider.CalendarContract
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +17,9 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.storage.FirebaseStorage
 import com.taruc.foodbank.entity.event
+import java.io.File
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Period
@@ -44,9 +48,8 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             val tfAddress = findViewById<TextView>(R.id.tfAddress)
             val btnCalendar = findViewById<Button>(R.id.btnCalendar)
             val btnVolunteer = findViewById<Button>(R.id.btnVolunteer)
-/*
-            val imgEvent = findViewById<ImageView>()
-*/
+
+            val imgEvent = findViewById<ImageView>(R.id.imgEventDetail)
             lat = event.latitude!!.toDouble()
             lng = event.longtitude!!.toDouble()
             tvEventName.text = event.name
@@ -54,6 +57,20 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
             tfDateStart.text = event.dateStart.toString()
             tfDateEnd.text = event.dateEnd.toString()
             tfAddress.text = event.address
+
+
+            var imgName = event.image.toString()
+            val storageRef = FirebaseStorage.getInstance().reference.child("eventImg/$imgName")
+            val localfile = File.createTempFile("tempImage", "png")
+
+            storageRef.getFile(localfile).addOnSuccessListener {
+
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                imgEvent.setImageBitmap(bitmap)
+            }
+
+
+
 
             map = findViewById<MapView>(R.id.gMap)
 
@@ -84,16 +101,16 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-        val date2 = event.dateStart
-        val formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss", Locale.KOREA)
+        val date2 = event.dateStart.toString()
+        val formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
         val localDate2: LocalDateTime = LocalDateTime.parse(date2, formatter2)
 /*
         localDate2.minus(Duration.ofHours(8))
 */
         val timeInMilliseconds2: Long = localDate2.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
-        val date = event.dateEnd
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss", Locale.ENGLISH)
+        val date = event.dateEnd.toString()
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH)
         val localDate: LocalDateTime = LocalDateTime.parse(date, formatter)
 /*
         localDate.minus(Duration.ofHours(8))
@@ -101,15 +118,15 @@ class user_Activity_Event_Detail : AppCompatActivity(), OnMapReadyCallback {
         val timeInMilliseconds: Long = localDate.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
 
 
-        val intent = Intent(Intent.ACTION_INSERT).apply {
+        val intent2 = Intent(Intent.ACTION_INSERT).apply {
             data = CalendarContract.Events.CONTENT_URI
             putExtra(CalendarContract.Events.TITLE, event.name)
             putExtra(CalendarContract.Events.EVENT_LOCATION, event?.address.toString())
             putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, timeInMilliseconds2)
             putExtra(CalendarContract.EXTRA_EVENT_END_TIME, timeInMilliseconds)
         }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+        if (intent2.resolveActivity(packageManager) != null) {
+            startActivity(intent2)
         }
     }
 

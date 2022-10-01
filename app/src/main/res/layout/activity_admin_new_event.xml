@@ -2,30 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/btnStartTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".admin_Activity_New_Event">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -39,17 +27,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="48dp"
-        android:text="Name"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
     <EditText
         android:id="@+id/tfEventName"
         android:layout_width="wrap_content"
@@ -57,27 +34,29 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="-10dp"
         android:ems="10"
+        android:hint="event name"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
+        app:layout_constraintTop_toTopOf="@+id/textView8"
+        />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:text="Description"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="34dp"
+        android:text="Name"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/tvdateStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="52dp"
         android:text="Start Date"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textView14"
@@ -89,9 +68,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
         android:ems="10"
+        android:hint="very good"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/tfEventName"
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 
@@ -99,7 +78,7 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="48dp"
         android:text="Address"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textView17"
@@ -109,7 +88,7 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="40dp"
         android:text="End Date"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/tvdateStart"
@@ -119,7 +98,7 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="37dp"
         android:text="Image"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/textView18"
@@ -127,45 +106,27 @@
 
     <Button
         android:id="@+id/btnStartDate"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
-        android:text="Date"
+        android:text="DATE"
         app:layout_constraintStart_toStartOf="@+id/tfEventDescription"
         app:layout_constraintTop_toTopOf="@+id/tvdateStart" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:text="Time"
-        app:layout_constraintStart_toEndOf="@+id/btnStartDate"
-        app:layout_constraintTop_toTopOf="@+id/btnStartDate" />
-
-    <Button
         android:id="@+id/btnEndDate"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
-        android:text="Date"
+        android:layout_marginTop="4dp"
+        android:text="DATE"
         app:layout_constraintStart_toStartOf="@+id/btnStartDate"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
-
-    <Button
-        android:id="@+id/btnEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:text="Time"
-        app:layout_constraintStart_toEndOf="@+id/btnEndDate"
-        app:layout_constraintTop_toTopOf="@+id/btnEndDate" />
 
     <EditText
         android:id="@+id/tfEventAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-15dp"
         android:ems="10"
         android:hint="Enter Address"
         android:inputType="textPostalAddress"
@@ -181,5 +142,34 @@
         android:text="Upload"
         app:layout_constraintStart_toStartOf="@+id/tfEventAddress"
         app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+    <ImageView
+        android:id="@+id/imgNewEvent"
+        android:layout_width="89dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnEventImage"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Description"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <Button
+        android:id="@+id/btnAddNewEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginBottom="24dp"
+        android:text="Add New Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

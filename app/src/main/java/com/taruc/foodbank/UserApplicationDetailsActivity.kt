@@ -22,7 +22,7 @@ class UserApplicationDetailsActivity : AppCompatActivity() {
 
         val Created: TextView = findViewById(R.id.tf_dateTimeApplied)
         val bundle: Bundle? = intent.extras
-        val created = bundle!!.getString("dateTimeCreated")
+        val created = bundle!!.getString("dateTimeApplied")
         Created.text = created
         val auth = FirebaseAuth.getInstance()
 

@@ -14,7 +14,7 @@ data class event(
 
     var description:String?= null,
     var image:String?= null,
-    var lastModified: String?= null,
+    var createdDate: String?= null,
 
     var latitude:Double?= null,
     var longtitude:Double?= null,
@@ -49,7 +49,7 @@ data class event(
         parcel.writeString(dateStart)
         parcel.writeString(description)
         parcel.writeString(image)
-        parcel.writeString(lastModified)
+        parcel.writeString(createdDate)
         parcel.writeDouble(latitude!!)
         parcel.writeDouble(longtitude!!)
         parcel.writeString(name)

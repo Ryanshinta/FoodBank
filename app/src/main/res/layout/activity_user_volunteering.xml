@@ -12,21 +12,6 @@
         android:background="@color/teal_700">
 
 
-        <android.widget.SearchView
-            android:id="@+id/searchEvent"
-            android:layout_width="280dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="65dp"
-            android:layout_marginTop="26dp"
-            android:background="@color/white"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search my events"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16">
-
-        </android.widget.SearchView>
-
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
@@ -52,10 +37,30 @@
             android:id="@+id/rvMyEvents"
             android:layout_width="374dp"
             android:layout_height="395dp"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchEvent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFB" />
+
+        <Button
+            android:id="@+id/btnFB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
+            android:text="FoodBank"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <Button
+            android:id="@+id/btnEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="Event"
+            app:layout_constraintBottom_toBottomOf="@+id/btnFB"
+            app:layout_constraintStart_toEndOf="@+id/btnFB"
+            app:layout_constraintTop_toTopOf="@+id/btnFB" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

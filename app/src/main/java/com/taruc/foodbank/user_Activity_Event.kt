@@ -85,7 +85,9 @@ class user_Activity_Event : AppCompatActivity() {
 
     private fun setDataInList(){
 
+
         val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+
         val currentDate = sdf.format(Date())
 
         db = FirebaseFirestore.getInstance()
@@ -101,12 +103,13 @@ class user_Activity_Event : AppCompatActivity() {
 
                 }
 
+
                 for(dc : DocumentChange in value?.documentChanges!!){
 
                     if(dc.type == DocumentChange.Type.ADDED){
                         eventArrayList.add((dc.document.toObject(event::class.java)))
-                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString() ||
-                            eventArrayList.get(eventArrayList.size - 1).status == "Inactive"){
+                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString() /*||
+                            eventArrayList.get(eventArrayList.size - 1).status == "Inactive"*/){
                             eventArrayList.removeAt(eventArrayList.size - 1)
                         }
                     }

@@ -9,10 +9,13 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.ktx.toObject
 import com.taruc.foodbank.entity.event
 import com.taruc.foodbank.entity.foodBank
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 class UserVolunteering : AppCompatActivity() {
@@ -75,6 +78,8 @@ class UserVolunteering : AppCompatActivity() {
                 .addOnFailureListener{
                     Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
+
+            setDataInList()
         }
 
         btnFB.setOnClickListener(){
@@ -96,5 +101,37 @@ class UserVolunteering : AppCompatActivity() {
                 }
         }
 
+    }
+
+    private fun setDataInList(){
+
+        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("events").addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ){
+                if(error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+
+                }
+
+                for(dc : DocumentChange in value?.documentChanges!!){
+
+                    if(dc.type == DocumentChange.Type.ADDED){
+                        eventArrayList.add((dc.document.toObject(event::class.java)))
+                        if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString() ||
+                            eventArrayList.get(eventArrayList.size - 1).status == "Registered"){
+                            eventArrayList.removeAt(eventArrayList.size - 1)
+                        }
+                    }
+                }
+            }
+        })
     }
 }

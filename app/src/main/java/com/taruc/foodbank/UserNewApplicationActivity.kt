@@ -1,7 +1,5 @@
 package com.taruc.foodbank
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +9,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.taruc.foodbank.entity.foodBank
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.collections.ArrayList
 
 class UserNewApplicationActivity : AppCompatActivity(){
@@ -51,8 +47,8 @@ class UserNewApplicationActivity : AppCompatActivity(){
         }
         val buttonApply = findViewById<Button>(R.id.btn_confirmApplication)
         buttonApply.setOnClickListener{
-            var resources = findViewById<TextView>(R.id.tf_resources)
-            var amount = findViewById<TextView>(R.id.tf_amount)
+            var resources = findViewById<TextView>(R.id.tf_age)
+            var amount = findViewById<TextView>(R.id.tf_event)
             var description = findViewById<TextView>(R.id.tf_description)
             var emergencyLevel = findViewById<Spinner>(R.id.sp_emergencyLevel)
             var status = "Pending"

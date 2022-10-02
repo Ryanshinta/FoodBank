@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.taruc.foodbank.entity.event
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +58,17 @@ class admin_Activity_Event_Detail : AppCompatActivity()  , DatePickerDialog.OnDa
             val tfEventUpdateDescription = findViewById<TextView>(R.id.tfEventUpdateDescription)
             val imgUpdateEvent = findViewById<ImageView>(R.id.imgUpdateEvent)
             val btnDeleteEventAdmin = findViewById<Button>(R.id.btnDeleteEventAdmin)
+            val status = findViewById<TextView>(R.id.tvStatusEvent)
+
+            var imgName = event.image.toString()
+            val storageRef = FirebaseStorage.getInstance().reference.child("eventImg/$imgName")
+            val localfile = File.createTempFile("tempImage", "png")
+
+            storageRef.getFile(localfile).addOnSuccessListener {
+
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                imgUpdateEvent.setImageBitmap(bitmap)
+            }
 
             btnStartUpdateDate.text = event.dateStart
             btnEndUpdateDate.text = event.dateEnd
@@ -64,6 +77,7 @@ class admin_Activity_Event_Detail : AppCompatActivity()  , DatePickerDialog.OnDa
             tfEventUpdateDescription.text = event.description
             arrayLocation[0] = event.latitude!!
             arrayLocation[1] = event.longtitude!!
+            status.text = event.status.toString()
 /*
             imgUpdateEvent.
 */
@@ -94,16 +108,32 @@ class admin_Activity_Event_Detail : AppCompatActivity()  , DatePickerDialog.OnDa
             }
 
             btnDeleteEventAdmin.setOnClickListener(){
-                val db = FirebaseFirestore.getInstance()
-                db.collection("events").document("$createDate")
-                    .update("status", "Inactive")
-                    .addOnSuccessListener { Log.d(TAG, " successfully deleted!")
-                        val intent6 = Intent(this, admin_Activity_Event::class.java)
-                        startActivity(intent6)
 
-                        finish()
-                    }
-                    .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+                val db = FirebaseFirestore.getInstance()
+                if(event.status == "Active") {
+                    db.collection("events").document("$createDate")
+                        .update("status", "Inactive")
+                        .addOnSuccessListener {
+                            Log.d(TAG, " successfully deleted!")
+                            val intent6 = Intent(this, admin_Activity_Event::class.java)
+                            startActivity(intent6)
+
+                            finish()
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                }else{
+                    db.collection("events").document("$createDate")
+                        .update("status", "Active")
+                        .addOnSuccessListener {
+                            Log.d(TAG, " successfully deleted!")
+                            val intent6 = Intent(this, admin_Activity_Event::class.java)
+                            startActivity(intent6)
+
+                            finish()
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+                }
 
             }
 
@@ -139,6 +169,9 @@ class admin_Activity_Event_Detail : AppCompatActivity()  , DatePickerDialog.OnDa
                     }else if(arrayLocation[0] == 0.0){
                         Toast.makeText(applicationContext, "Address Cannot Recognized", Toast.LENGTH_SHORT).show()
                     }else{
+
+                        val curImg = storageRef.child("eventImg/${event.image}")
+                        curImg.delete()
                         //add to firestore
                         val imgName = ref.child("eventImg/$createDate.png")
                         imgName.putFile(imgUri)

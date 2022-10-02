@@ -21,10 +21,7 @@ import com.taruc.foodbank.entity.foodBank
 import com.taruc.foodbank.entity.role
 import com.taruc.foodbank.entity.user
 
-/**
- * [RecyclerView.Adapter] that can display a [foodBank].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class FoodBankRecyclerViewAdapter(
     private val values: List<foodBank>
 ) : RecyclerView.Adapter<FoodBankRecyclerViewAdapter.ViewHolder>() {

@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     val intent = Intent(
-                                        this, AdminVolunteerActivity::class.java
+                                        this, VolunteerActivity::class.java
                                     )
                                     startActivity(intent)
                                 }
@@ -288,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(
-                        this, UserVolunteering::class.java
+                        this, VolunteerActivity::class.java
                     )
                     startActivity(intent)
                 }

@@ -227,8 +227,7 @@ class AdminNewFoodBankActivity : AppCompatActivity(),
     }
 
     override fun onMyLocationClick(location: Location) {
-        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG)
-            .show()
+        //Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
 
         var geocoder = Geocoder(applicationContext,Locale.getDefault())
         var addressString:String
@@ -244,13 +243,17 @@ class AdminNewFoodBankActivity : AppCompatActivity(),
                 if (address.premises != null)
                     sb.append(address.premises).append(", ")
 
+
                 sb.append(address.subAdminArea).append("\n")
                 sb.append(address.locality).append(", ")
                 sb.append(address.adminArea).append(", ")
                 sb.append(address.countryName).append(", ")
                 sb.append(address.postalCode)
 
+
                 addressString = sb.toString()
+                Toast.makeText(this, "Current location:\n${addressString.toString()}", Toast.LENGTH_LONG)
+                    .show()
                 val etAddress = findViewById<EditText>(R.id.etAddress)
                 etAddress.setText(addressString)
 

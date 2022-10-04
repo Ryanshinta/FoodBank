@@ -14,6 +14,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.ktx.toObject
 import com.taruc.foodbank.entity.event
 import com.taruc.foodbank.entity.foodBank
+import com.taruc.foodbank.entity.volunteer
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,6 +22,8 @@ import kotlin.collections.ArrayList
 class UserVolunteering : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var eventArrayList: ArrayList<event>
+    private lateinit var tmpEventVolunteersList: ArrayList<event>
+    private lateinit var volunteerArrayList: ArrayList<volunteer>
     private lateinit var foodBankList: ArrayList<foodBank>
     private lateinit var volunteerAdapter:VolunteerAdapter
     private lateinit var db : FirebaseFirestore
@@ -38,16 +41,14 @@ class UserVolunteering : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         eventArrayList = arrayListOf()
-        foodBankList = arrayListOf()
+        volunteerArrayList = arrayListOf()
+        tmpEventVolunteersList = arrayListOf()
 
         volunteerAdapter = VolunteerAdapter(eventArrayList)
 
         recyclerView.adapter = volunteerAdapter
 
         db = FirebaseFirestore.getInstance()
-        eventArrayList = arrayListOf()
-        foodBankList = arrayListOf()
-
 
         volunteerAdapter.onItemClick = {
             val intent = Intent(this, user_Activity_Event_Detail::class.java)
@@ -56,29 +57,15 @@ class UserVolunteering : AppCompatActivity() {
         }
 
         volunteerAdapter.onItemClick = {
-            val intent = Intent(this, admin_Activity_FoodBank::class.java)
+            val intent = Intent(this, userFoodBankActivity::class.java)
             intent.putExtra("event", it)
             startActivity(intent)
         }
 
         btnEvents.setOnClickListener(){
-            db.collection("events").get()
-                .addOnSuccessListener {
-                    if (!it.isEmpty){
-                        for (data in it.documents){
-                            Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
-                            val eventObj = data.toObject<event>()
-                            if (eventObj != null){
-                                eventArrayList.add(eventObj)
-                            }
-                        }
-                        rvMyEvents.adapter = VolunteerAdapter(eventArrayList)
-                    }
-                }
-                .addOnFailureListener{
-                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-                }
-
+            volunteerArrayList.clear()
+            eventArrayList.clear()
+            Log.i("btn click","Cached document data : ")
             setDataInList()
         }
 
@@ -104,8 +91,63 @@ class UserVolunteering : AppCompatActivity() {
     }
 
     private fun setDataInList(){
+        Log.i("in data function","Cached document data : ")
 
-        val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+        val rvMyEvents = findViewById<RecyclerView>(R.id.rvMyEvents)
+
+        db.collection("volunteer").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty){
+                    for (data in it.documents){
+                        Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
+                        val volunteerObj = data.toObject<volunteer>()
+                        if (volunteerObj != null){
+                            volunteerArrayList.add(volunteerObj)
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener{
+                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
+        tmpEventVolunteersList.clear()
+        db.collection("events").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty){
+                    for (data in it.documents){
+                        if (data.get("ttlVolunteer")!=null){
+                            val eventObj = data.toObject<event>()
+                            if (eventObj != null){
+                                eventArrayList.add(eventObj)
+                                Log.d(ContentValues.TAG,"Cached document data : ${data?.data}")
+                                if (eventObj.ttlVolunteer > 0){
+                                    tmpEventVolunteersList.add(eventObj)
+                                }
+                        }else{
+                                Toast.makeText(this, "No Volunteers Found", Toast.LENGTH_SHORT).show()
+                            }
+
+
+
+
+                        }
+                    }
+                    println(eventArrayList)
+                    rvMyEvents.adapter = VolunteerAdapter(tmpEventVolunteersList)
+                }
+                //volunteerAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener{
+                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+
+        volunteerAdapter.notifyDataSetChanged()
+
+
+
+
+        /*val sdf = SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
 
         db = FirebaseFirestore.getInstance()
@@ -118,20 +160,33 @@ class UserVolunteering : AppCompatActivity() {
                 if(error != null){
                     Log.e("Firestore Error", error.message.toString())
                     return
-
                 }
 
                 for(dc : DocumentChange in value?.documentChanges!!){
 
                     if(dc.type == DocumentChange.Type.ADDED){
                         eventArrayList.add((dc.document.toObject(event::class.java)))
+                        //val eventDate = eventArrayList.get(eventArrayList.size - 1).createdDate.toString()
                         if(currentDate > eventArrayList.get(eventArrayList.size - 1).dateEnd.toString() ||
-                            eventArrayList.get(eventArrayList.size - 1).status == "Registered"){
+                            eventArrayList.get(eventArrayList.size - 1).status == "Inactive"){
                             eventArrayList.removeAt(eventArrayList.size - 1)
                         }
                     }
                 }
+
+                for(dc : DocumentChange in value?.documentChanges!!){
+
+                    if(dc.type == DocumentChange.Type.ADDED){
+                        volunteerArrayList.add((dc.document.toObject(volunteer::class.java)))
+                        val eventDate = eventArrayList.get(eventArrayList.size - 1).createdDate.toString()
+                        if(eventDate > volunteerArrayList.get(volunteerArrayList.size - 1).dateEnd.toString() ||
+                            volunteerArrayList.get(volunteerArrayList.size - 1).status == "Pending"){
+                            volunteerArrayList.removeAt(volunteerArrayList.size - 1)
+                        }
+                    }
+                }
+                volunteerAdapter.notifyDataSetChanged()
             }
-        })
+        })*/
     }
 }

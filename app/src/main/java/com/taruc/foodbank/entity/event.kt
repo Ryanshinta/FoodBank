@@ -22,7 +22,7 @@ data class event(
     var name:String?= null,
     var status: String?= null,
 
-    var volunteers:List<user>?= null
+    var ttlVolunteer:Int = 0
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

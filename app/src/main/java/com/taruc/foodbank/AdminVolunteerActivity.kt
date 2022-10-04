@@ -2,6 +2,7 @@ package com.taruc.foodbank
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class AdminVolunteerActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
 
         volunteerList = arrayListOf()
+        volunteerList.clear()
         db = FirebaseFirestore.getInstance()
 
         val auth = FirebaseAuth.getInstance()
@@ -36,6 +38,7 @@ class AdminVolunteerActivity : AppCompatActivity() {
                         volunteerList.add(volunteer)
                     }
                 }
+                Log.i("GetVolunteerList",volunteerList.toString())
                 recyclerView.adapter = VolunteerListAdapter(volunteerList)
             }
         }

@@ -29,7 +29,7 @@ class VolunteerAdapter(private val eventList: ArrayList<event>) : RecyclerView.A
 
 
 //        holder.imgevent.setImageResource(event.image)
-        holder.tvEvent.text=event.name
+        holder.tvEvent.text = event.name
         holder.tvDuration.text = "Start From : "+event.dateStart
 
         holder.itemView.findViewById<Button>(R.id.btnSelect).setOnClickListener {

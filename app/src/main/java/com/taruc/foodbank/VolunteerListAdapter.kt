@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.taruc.foodbank.entity.role
 import com.taruc.foodbank.entity.volunteer
 
 class VolunteerListAdapter (private val volunteerList: ArrayList<volunteer>): RecyclerView.Adapter<VolunteerListAdapter.VolunteerViewHolder>() {
@@ -54,19 +55,19 @@ class VolunteerListAdapter (private val volunteerList: ArrayList<volunteer>): Re
         }
 
         val volunteer:volunteer = volunteerList[position]
-        holder.name.text = volunteer.name
-        holder.email.text = volunteer.email
-        holder.status.text = volunteer.status
+        holder.name.text = volunteer.Name
+        holder.email.text = volunteer.Email
+        holder.status.text = volunteer.Status
         holder.card.setOnClickListener{
             val context = holder.itemView.context
-            if(userRole == "USER"){
+            if(userRole == role.USER.toString()){
                 val intent = Intent(context, UserVolunteering ::class.java)
-                    .putExtra("name",volunteer.name.toString())
+                    .putExtra("name",volunteer.Name.toString())
                 context.startActivity(intent)
             }
-            if(userRole == "ADMIN"){
+            if(userRole == role.ADMIN.toString()){
                 val intent = Intent(context, adminViewVolunteer ::class.java)
-                    .putExtra("name",volunteer.name.toString())
+                    .putExtra("name",volunteer.Name.toString())
                 context.startActivity(intent)
             }
         }

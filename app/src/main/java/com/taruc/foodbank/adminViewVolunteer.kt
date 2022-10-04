@@ -8,6 +8,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import com.taruc.foodbank.entity.volunteer
+import java.util.*
 
 class adminViewVolunteer : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,32 +31,31 @@ class adminViewVolunteer : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val Created = findViewById<TextView>(R.id.tf_VolieName)
-        val bundle: Bundle? = intent.extras
-        val created = bundle!!.getString("name")
-        Created.text = created
+        //val Created = findViewById<TextView>(R.id.tf_VolieName)
+        val created = intent.getStringExtra("name")
+        Log.i("GetIntentData",created.toString())
         db.collection("volunteer")
-            .document(created.toString())
+            .whereEqualTo("Name",created.toString())
             .get()
-            .addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
-                    val document = task.result
-                    if (document.exists()) {
-                        name.text = document.getString("Name")
-                        email.text = document.getString("Email")
-                        age.text = document.getString("Age")
-                        event.text = document.getString("Event")
+            .addOnSuccessListener {
+             for (task in it.documents)
+                if (task.exists()) {
+                    val document = task.toObject<volunteer>()
+
+                    if (Objects.nonNull(document)) {
+                        name.text = document!!.Name
+                        Log.i("GetData",name.text.toString())
+                        email.text = document!!.Email
+                        age.text = document!!.Age
+                        event.text = document!!.Event
                     } else {
                         Log.d(ContentValues.TAG, "The document doesn't exist.")
                     }
-                } else {
-                    task.exception?.message?.let {
-                        Log.d(ContentValues.TAG, it)
-                    }
                 }
+                }
+            .addOnFailureListener{
+                Log.d("Failure", it.toString())
             }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
             }
+
     }
-}
